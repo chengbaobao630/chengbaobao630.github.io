@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>rust_struct | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="rust,struct">
+    <meta name="description" content="rust结构体    struct，或者 structure，是一个自定义数据类型，允许你命名和包装多个相关的值，从而形成一个有意义的组合。如果你熟悉一门面向对象语言，struct 就像对象中的数据属性。在本章中，我们会对比元组与结构体的异同，演示结构体的用法，并讨论如何在结构体上定义方法和关联函数来指定与结构体数据相关的行为。你在程序中基于结构体和枚举（enum）（在第六章介绍）创建新类型，以充">
+<meta name="keywords" content="rust,struct">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rust_struct">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/10/rust-struct/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="rust结构体    struct，或者 structure，是一个自定义数据类型，允许你命名和包装多个相关的值，从而形成一个有意义的组合。如果你熟悉一门面向对象语言，struct 就像对象中的数据属性。在本章中，我们会对比元组与结构体的异同，演示结构体的用法，并讨论如何在结构体上定义方法和关联函数来指定与结构体数据相关的行为。你在程序中基于结构体和枚举（enum）（在第六章介绍）创建新类型，以充">
+<meta property="og:locale" content="chinese">
+<meta property="og:updated_time" content="2018-09-08T06:58:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rust_struct">
+<meta name="twitter:description" content="rust结构体    struct，或者 structure，是一个自定义数据类型，允许你命名和包装多个相关的值，从而形成一个有意义的组合。如果你熟悉一门面向对象语言，struct 就像对象中的数据属性。在本章中，我们会对比元组与结构体的异同，演示结构体的用法，并讨论如何在结构体上定义方法和关联函数来指定与结构体数据相关的行为。你在程序中基于结构体和枚举（enum）（在第六章介绍）创建新类型，以充">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Cheng Cheng</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">rust_struct</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">rust_struct</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-10T01:38:18.799Z" itemprop="datePublished" class="page-time">
+  2018-09-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rust结构体"><span class="post-toc-number">1.</span> <span class="post-toc-text">rust结构体</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关联函数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">关联函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#枚举"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">枚举</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#option"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">option</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#匹配模式"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">匹配模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#match"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">match</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#绑定值模式"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">绑定值模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#匹配option"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">匹配option</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通配符"><span class="post-toc-number">1.5.4.</span> <span class="post-toc-text">_ 通配符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#if-let"><span class="post-toc-number">1.5.5.</span> <span class="post-toc-text">if let</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-rust-struct"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">rust_struct</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-10 09:38:18" datetime="2018-09-10T01:38:18.799Z"  itemprop="datePublished">2018-09-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="rust结构体"><a href="#rust结构体" class="headerlink" title="rust结构体"></a>rust结构体</h1><blockquote>
+<p>   struct，或者 structure，是一个自定义数据类型，允许你命名和包装多个相关的值，从而形成一个有意义的组合。如果你熟悉一门面向对象语言，struct 就像对象中的数据属性。在本章中，我们会对比元组与结构体的异同，演示结构体的用法，并讨论如何在结构体上定义方法和关联函数来指定与结构体数据相关的行为。你在程序中基于结构体和枚举（enum）（在第六章介绍）创建新类型，以充分利用 Rust 的编译时类型检查。</p>
+</blockquote>
+<p>这一章看下来理解上不是很困难，定义一个结构体并支持打印。<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">    name:<span class="built_in">String</span>,</span><br><span class="line">    age:<span class="built_in">i32</span>,</span><br><span class="line">    score:<span class="built_in">f32</span>,</span><br><span class="line">&#125;</span><br><span class="line">fu main()&#123;</span><br><span class="line">    <span class="keyword">let</span> age = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">let</span> s = Student &#123;</span><br><span class="line">        name : <span class="built_in">String</span>::from(<span class="string">"cc"</span>),</span><br><span class="line">        age,</span><br><span class="line">        score: <span class="number">10.1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,s.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>关于这个官方的说明还是比较清楚的，接下来看下结构体中包含引用的情况<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">      name:&amp;<span class="built_in">String</span>,</span><br><span class="line">      age:<span class="built_in">i32</span>,</span><br><span class="line">      score:<span class="built_in">f32</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果这么写的话 会报错，因为之前在生命周期的一章中说过，需要指结构体中的引用类型的生命周期<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span></span>&lt;<span class="symbol">'a</span>&gt;&#123;</span><br><span class="line">      name:&amp;<span class="symbol">'a</span> <span class="built_in">String</span>,</span><br><span class="line">      age:<span class="built_in">i32</span>,</span><br><span class="line">      score:<span class="built_in">f32</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这么写的话就可以编译通过了</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>这个理解起来也不是很难，至少前面部分是的<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="keyword">impl</span> Student&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">say_hello</span></span>(<span class="keyword">self</span>)&#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"hello,my name is &#123;&#125;\nand my score is &#123;&#125;"</span>,<span class="keyword">self</span>.name,<span class="keyword">self</span>.total_score())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">total_score</span></span>(&amp;<span class="keyword">self</span>) -&gt; <span class="built_in">f32</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.score * <span class="number">4.0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里如果先忽略第二个函数和调用的地方的话，是比较容易理解的。<br>来看下第二个函数，他的参数是&amp;self而不是self，如果换成self的话 编译是会报错的<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cannot <span class="keyword">move</span> out of `<span class="keyword">self</span>` because it is borrowed</span><br><span class="line">   |</span><br><span class="line">   |         <span class="built_in">println!</span>(<span class="string">"hello,my name is &#123;&#125;\nand my score is &#123;&#125;"</span>,<span class="keyword">self</span>.name,<span class="keyword">self</span>.total_score())</span><br><span class="line">   |                                                            --------- ^^^^ <span class="keyword">move</span> out of `<span class="keyword">self</span>` occurs here</span><br><span class="line">   |                                                            |</span><br><span class="line">   |                                                            borrow of `<span class="keyword">self</span>.name` occurs here</span><br></pre></td></tr></table></figure></p>
+<p>我写了一段这样的代码来加深自己的理解<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">print</span></span>(s:Student)&#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,s.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> age = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">let</span> s = Student &#123;</span><br><span class="line">        name : <span class="built_in">String</span>::from(<span class="string">"cc"</span>),</span><br><span class="line">        age,</span><br><span class="line">        score: <span class="number">10.1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    s.say_hello();</span><br><span class="line">    <span class="keyword">let</span> y = &amp;s;</span><br><span class="line">    print(s);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,y.name);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里就是先<code>y</code>先借用了<code>s</code>,然后将<code>s</code>传递给<code>print</code>函数，函数结束后，s按照rust的所有权来说要进行销毁，但是他在外层作用域已经被借用了，所以会报错<br>注意：！！！ 这里和之后有没有用到<code>y</code>并没有关系，只要是在该作用域内先产生了借用行为，再去销毁的话 就会产生编译异常<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">print</span></span>(s:Student)&#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,s.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">test</span></span>(s:&amp;Student)&#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,s.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> age = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">let</span> s = Student &#123;</span><br><span class="line">        name : <span class="built_in">String</span>::from(<span class="string">"cc"</span>),</span><br><span class="line">        age,</span><br><span class="line">        score: <span class="number">10.1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    s.say_hello();</span><br><span class="line"></span><br><span class="line">    test(&amp;s);</span><br><span class="line">    print(s);</span><br><span class="line"><span class="comment">//    println!("Hello, world!&#123;:#?&#125;",y.name);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果在销毁对象之前，他的借用已经断开了那么就不会有异常。<br>那我们回头来看看之前的函数<br><code>println!(&quot;hello,my name is {}\nand my score is {}&quot;,self.name,self.total_score())</code><br>这句话很明显销毁的地方就是在total_score调用结束之后，self.name的这个地方产生了借用而且没有断开所以报错了</p>
+<p>在看另一种情况<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">say_hello</span></span>(&amp;<span class="keyword">self</span>)&#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"&#123;:#?&#125;"</span>,<span class="keyword">self</span>);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"hello,my name is &#123;&#125;\nand my score is &#123;&#125;"</span>,<span class="keyword">self</span>.name,<span class="keyword">self</span>.total_score())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">total_score</span></span>(<span class="keyword">self</span>) -&gt; <span class="built_in">f32</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.score * <span class="number">4.0</span></span><br><span class="line">    &#125;</span><br><span class="line">error[E0507]: cannot <span class="keyword">move</span> out of borrowed content</span><br><span class="line">   |</span><br><span class="line">   |         <span class="built_in">println!</span>(<span class="string">"hello,my name is &#123;&#125;\nand my score is &#123;&#125;"</span>,<span class="keyword">self</span>.name,<span class="keyword">self</span>.total_score())</span><br><span class="line">   |                                                                      ^^^^ cannot <span class="keyword">move</span> out of borrowed content</span><br><span class="line"></span><br><span class="line">error: aborting due to previous error</span><br></pre></td></tr></table></figure></p>
+<p>这个报错以我的青铜英语水平理解下来是 - -不能在租借环境下移除对象，那么是什么意思呢，由于self比较特殊 我们想办法自己重现下这个问题<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">print</span></span>(s:Student)&#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,s.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">test</span></span>(s:&amp;Student)&#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"Hello, world!&#123;:#?&#125;"</span>,s.name);</span><br><span class="line">    print(*s);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> age = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">let</span> s = Student &#123;</span><br><span class="line">        name : <span class="built_in">String</span>::from(<span class="string">"cc"</span>),</span><br><span class="line">        age,</span><br><span class="line">        score: <span class="number">10.1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    test(&amp;s);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">error[E0507]: cannot <span class="keyword">move</span> out of borrowed content</span><br><span class="line">  --&gt; src/main.rs:<span class="number">14</span>:<span class="number">11</span></span><br><span class="line">   |</span><br><span class="line">   |     print(*s);</span><br><span class="line">   |           ^^ cannot <span class="keyword">move</span> out of borrowed content</span><br></pre></td></tr></table></figure></p>
+<p>这么一看就明显了<br>在看上面的函数我们的<code>total_sore</code>方法需要的是self的所有权，而不是一个租用的引用，<br>那么rust在传输的时候应该是自动为我们加上了*（自动引用和解引用），既然编译器本身检查这么强大了为什么不把这个也明显的限制出来呢。。。</p>
+<p>综上所述 的各种的问题 我们还是老老实实的对所有的self加上&amp;租用吧。</p>
+<h2 id="关联函数"><a href="#关联函数" class="headerlink" title="关联函数"></a>关联函数</h2><p>上面提到的函数是在产生了对象之后才可以实用的函数，类似于java的对象方法，那么关联函数就类似于静态方法<br>是 使用::来调用</p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Message</span></span> &#123;</span><br><span class="line">    Quit,</span><br><span class="line">    Move &#123; x: <span class="built_in">i32</span>, y: <span class="built_in">i32</span> &#125;,</span><br><span class="line">    Write(<span class="built_in">String</span>),</span><br><span class="line">    ChangeColor(<span class="built_in">i32</span>, <span class="built_in">i32</span>, <span class="built_in">i32</span>),</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">impl</span> Message &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">call</span></span>(&amp;<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">// method body would be defined here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> m = Message::Write(<span class="built_in">String</span>::from(<span class="string">"hello"</span>));</span><br><span class="line">m.call();</span><br></pre></td></tr></table></figure>
+<p>关于枚举相比java自由很多，但是我还是没想到这么自由的一个实际应用场景，在使用的时候难道不需要区分类型呢，方法也不好通用，因为self指向的都不是同一种类型的实体‘<br>继续看下面。</p>
+<h2 id="option"><a href="#option" class="headerlink" title="option"></a>option</h2><p>这里引出了rust中没有null这玩意儿，这也就意味着我可以和陪伴我5年之久的NullPointerException说再见了。。。<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Option</span></span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="literal">Some</span>(T),</span><br><span class="line">    <span class="literal">None</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这可能意味着当一个函数返回Option时我们需要做两种可能的处理，有值和没值。具体的用法还是要等到我们用的时候在查看吧<br><a href="https://doc.rust-lang.org/std/option/enum.Option.html" target="_blank" rel="noopener">enum.Option</a></p>
+<h2 id="匹配模式"><a href="#匹配模式" class="headerlink" title="匹配模式"></a>匹配模式</h2><h3 id="match"><a href="#match" class="headerlink" title="match"></a>match</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#![allow(unused_variables)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Coin</span></span> &#123;</span><br><span class="line">    Penny,</span><br><span class="line">    Nickel,</span><br><span class="line">    Dime,</span><br><span class="line">    Quarter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">value_in_cents</span></span>(coin: Coin) -&gt; <span class="built_in">u32</span> &#123;</span><br><span class="line">    <span class="keyword">match</span> coin &#123;</span><br><span class="line">        Coin::Penny =&gt; <span class="number">1</span>,</span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter =&gt; <span class="number">25</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个看起来就是和ruby java的语法大同小异了。</p>
+<h3 id="绑定值模式"><a href="#绑定值模式" class="headerlink" title="绑定值模式"></a>绑定值模式</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#![allow(unused_variables)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">UsState</span></span> &#123;</span><br><span class="line">   Alabama,</span><br><span class="line">   Alaska,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Coin</span></span> &#123;</span><br><span class="line">   Penny,</span><br><span class="line">   Nickel,</span><br><span class="line">   Dime,</span><br><span class="line">   Quarter(UsState),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">value_in_cents</span></span>(coin: Coin) -&gt; <span class="built_in">u32</span> &#123;</span><br><span class="line">    <span class="keyword">match</span> coin &#123;</span><br><span class="line">        Coin::Penny =&gt; <span class="number">1</span>,</span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter(state) =&gt; &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">"State quarter from &#123;:?&#125;!"</span>, state);</span><br><span class="line">            <span class="number">25</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="匹配option"><a href="#匹配option" class="headerlink" title="匹配option"></a>匹配option</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#![allow(unused_variables)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">plus_one</span></span>(x: <span class="built_in">Option</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; <span class="built_in">Option</span>&lt;<span class="built_in">i32</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">match</span> x &#123;</span><br><span class="line">        <span class="literal">None</span> =&gt; <span class="literal">None</span>,</span><br><span class="line">        <span class="literal">Some</span>(i) =&gt; <span class="literal">Some</span>(i + <span class="number">1</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> five = <span class="literal">Some</span>(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">let</span> six = plus_one(five);</span><br><span class="line"><span class="keyword">let</span> none = plus_one(<span class="literal">None</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：<strong>匹配是穷尽的</strong></p>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="_ 通配符"></a>_ 通配符</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#![allow(unused_variables)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="keyword">let</span> some_u8_value = <span class="number">0u8</span>;</span><br><span class="line"><span class="keyword">match</span> some_u8_value &#123;</span><br><span class="line">    <span class="number">1</span> =&gt; <span class="built_in">println!</span>(<span class="string">"one"</span>),</span><br><span class="line">    <span class="number">3</span> =&gt; <span class="built_in">println!</span>(<span class="string">"three"</span>),</span><br><span class="line">    <span class="number">5</span> =&gt; <span class="built_in">println!</span>(<span class="string">"five"</span>),</span><br><span class="line">    <span class="number">7</span> =&gt; <span class="built_in">println!</span>(<span class="string">"seven"</span>),</span><br><span class="line">    _ =&gt; (),</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>理解为 default就可以了。</p>
+<h3 id="if-let"><a href="#if-let" class="headerlink" title="if let"></a>if let</h3><p>看官方文档其实不是很明白let是在这里存在的意义是什么。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-08T06:58:46.000Z" itemprop="dateUpdated">2018-09-08 14:58:46</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/10/rust-struct/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/10/rust-struct/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="Cheng Cheng">
+            Cheng Cheng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rust/">rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/struct/">struct</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/10/rust-struct/&title=《rust_struct》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/10/rust-struct/&title=《rust_struct》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/10/rust-struct/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《rust_struct》 — Hexo&url=https://chengbaobao630@github.io/2018/09/10/rust-struct/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/10/rust-struct/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/10/rust-ownership/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">rust所有权</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/07/rust1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">rust学习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Cheng Cheng &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/10/rust-struct/&title=《rust_struct》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/10/rust-struct/&title=《rust_struct》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/10/rust-struct/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《rust_struct》 — Hexo&url=https://chengbaobao630@github.io/2018/09/10/rust-struct/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/10/rust-struct/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQY7CMAwFUO5/aWY7CBW+4xSp7ssKVaXN68JybD8e8Xq+rffrR3ce3XP0+/+VzQsDA+OyjPzFCSN5cue9h2/EwMC4AeNoE5/D4tkBN9kbBgYGRp7AfU7pEgwGBgbGXkYHvEbFwMDA6CRzyeaSd/3oLI6BgXFBRh4Kf//7lP4GBgbGpRjP4sqDaX7cXQvHL0/GwMAYzaimd50SW+uAmuwHAwNjNKNTvq8egM9oOWBgYMxm5CMUVWQncOclv5cMFwMD4waMflL4OdWrvqvQAMDAwBjNWGs9bgiRMXtbtouBgXFZRvWwWm0AVANuq7iGgYFxA8baUTOfeeh8gi8hGwMDYzSjepisNiwTfH69WtrDwMCYxEiOo9V0ba2p0CreYWBgDGX0RyXyUt3eYQsMDIz7MDqDFP2WZDUBjTJcDAyMcYxnce0KoNU4+Vj7WhgYGOMYawfUnFp9TqEwh4GBMZqRh9211ubahqqlOgwMjPswqn/rD4d1BtEOa4cYGBijGfmYV3WE4rxmAwYGxj0ZyYBFXkqrhtRObQ0DA2MqY60x0OflKWYU4jEwMEYz8rVWjOu0M5OtlzEYGBiXZVQHLDohtVrIywM9BgbGHRhnxO9qM2DDWRwDAwOjk10Wt1UuyWFgYGAsDaeuDVgkn+ywPYCBgTGakZfSkhJbngLmYb08bIGBgTGIkSdw+UE02VAexLc1MjEwMK7H+ANsCyLgI0QkngAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

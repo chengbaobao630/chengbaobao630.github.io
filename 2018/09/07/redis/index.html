@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>redis | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="https://www.cnblogs.com/syyong/p/6231326.html  redis核心单线程模型简单，i/o多路复用高效 数据结构string123456789101112typedef struct sdshdr&amp;#123;	//记录当前字符串的长度	int length;	//记录buf数组中未使用的字节长度	int free;	//字节数组	char buf[];	&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/07/redis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="https://www.cnblogs.com/syyong/p/6231326.html  redis核心单线程模型简单，i/o多路复用高效 数据结构string123456789101112typedef struct sdshdr&amp;#123;	//记录当前字符串的长度	int length;	//记录buf数组中未使用的字节长度	int free;	//字节数组	char buf[];	&amp;">
+<meta property="og:locale" content="chinese">
+<meta property="og:updated_time" content="2018-09-06T07:21:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis">
+<meta name="twitter:description" content="https://www.cnblogs.com/syyong/p/6231326.html  redis核心单线程模型简单，i/o多路复用高效 数据结构string123456789101112typedef struct sdshdr&amp;#123;	//记录当前字符串的长度	int length;	//记录buf数组中未使用的字节长度	int free;	//字节数组	char buf[];	&amp;">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Cheng Cheng</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">redis</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">redis</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-07T02:08:43.601Z" itemprop="datePublished" class="page-time">
+  2018-09-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis"><span class="post-toc-number">1.</span> <span class="post-toc-text">redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#核心"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">核心</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据结构"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">数据结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#string"><span class="post-toc-number">1.0.2.0.1.</span> <span class="post-toc-text">string</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#链表"><span class="post-toc-number">1.0.2.0.2.</span> <span class="post-toc-text">链表</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#字典"><span class="post-toc-number">1.0.2.0.3.</span> <span class="post-toc-text">字典</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#跳跃表"><span class="post-toc-number">1.0.2.0.4.</span> <span class="post-toc-text">跳跃表</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#整数集合"><span class="post-toc-number">1.0.2.0.5.</span> <span class="post-toc-text">整数集合</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#压缩列表"><span class="post-toc-number">1.0.2.0.6.</span> <span class="post-toc-text">压缩列表</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#对象"><span class="post-toc-number">1.0.2.0.7.</span> <span class="post-toc-text">对象</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据库"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">数据库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#过期删除策略"><span class="post-toc-number">1.0.3.1.</span> <span class="post-toc-text">过期删除策略</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#数据库通知"><span class="post-toc-number">1.0.3.2.</span> <span class="post-toc-text">数据库通知</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#RDB持久化"><span class="post-toc-number">1.0.3.3.</span> <span class="post-toc-text">RDB持久化</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#RDB文件结构"><span class="post-toc-number">1.0.3.4.</span> <span class="post-toc-text">RDB文件结构</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#RDB文件fen分析"><span class="post-toc-number">1.0.3.5.</span> <span class="post-toc-text">RDB文件fen分析</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#AOF持久化"><span class="post-toc-number">1.0.3.6.</span> <span class="post-toc-text">AOF持久化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#AOF载入和数据还原"><span class="post-toc-number">1.0.3.6.1.</span> <span class="post-toc-text">AOF载入和数据还原</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#AOF重写"><span class="post-toc-number">1.0.3.6.2.</span> <span class="post-toc-text">AOF重写</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#事件"><span class="post-toc-number">1.0.3.7.</span> <span class="post-toc-text">事件</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-redis"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">redis</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-07 10:08:43" datetime="2018-09-07T02:08:43.601Z"  itemprop="datePublished">2018-09-07</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p><a href="https://www.cnblogs.com/syyong/p/6231326.html" target="_blank" rel="noopener">https://www.cnblogs.com/syyong/p/6231326.html</a></p>
+</blockquote>
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><p>单线程模型简单，i/o多路复用高效</p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><h6 id="string"><a href="#string" class="headerlink" title="string"></a>string</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//记录当前字符串的长度</span></span><br><span class="line">	<span class="keyword">int</span> length;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//记录buf数组中未使用的字节长度</span></span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">free</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//字节数组</span></span><br><span class="line">	<span class="keyword">char</span> buf[];</span><br><span class="line">	</span><br><span class="line">&#125;sdshdr;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结构与 c的string不一样，sds(simple deymical string)，可以动态分配空间。默认记录了剩余空间，长度，和char数组</li>
+<li>扩容，当修改字符串为更长时，会对现有数组驾培扩容</li>
+<li>收缩 惰性释放，字符串缩短时不会立即释放根据内存回收策略</li>
+</ul>
+<h6 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">pre</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">void</span> *value;</span><br><span class="line">&#125;listNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//首节点</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">head</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//尾节点</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">tail</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//链表长度</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> len;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//复制</span></span><br><span class="line">	<span class="keyword">void</span> (*dup) (<span class="keyword">void</span> *ptr);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//比较</span></span><br><span class="line">	<span class="keyword">int</span> (*match) (<span class="keyword">void</span> *ptr,<span class="keyword">void</span> *key);</span><br><span class="line">&#125;<span class="built_in">list</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>双向链表</li>
+<li>记录链表长度</li>
+</ul>
+<h6 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h6><p>hash表<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//hash表</span></span><br><span class="line">	dictEntry **table;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//hash表大小</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//hash表大小掩码，计算索引值</span></span><br><span class="line">	<span class="comment">// = size -1</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">	</span><br><span class="line">&#125;dictht;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//键</span></span><br><span class="line">	<span class="keyword">void</span> *key;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//值</span></span><br><span class="line">	<span class="keyword">union</span> &#123;</span><br><span class="line">		<span class="keyword">void</span> *val;</span><br><span class="line">		uint64_tu64;</span><br><span class="line">		int32_ts32;</span><br><span class="line">	&#125; v;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">	</span><br><span class="line">&#125;dictEntry;</span><br></pre></td></tr></table></figure></p>
+<p> 字典<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">// 字典类型</span></span><br><span class="line">	dictType *type;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//私有数据</span></span><br><span class="line">	<span class="keyword">void</span> *privdata;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 哈希表</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// rehash 索引</span></span><br><span class="line">    <span class="comment">// 当 rehash 不在进行时，值为 -1</span></span><br><span class="line">    <span class="keyword">int</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span></span><br><span class="line"></span><br><span class="line">&#125;dict;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictType</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算哈希值的函数</span></span><br><span class="line">    <span class="function"><span class="keyword">unsigned</span> <span class="title">int</span> <span class="params">(*hashFunction)</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *key)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制键的函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*keyDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制值的函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*valDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *obj);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对比键的函数</span></span><br><span class="line">    <span class="keyword">int</span> (*keyCompare)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key1, <span class="keyword">const</span> <span class="keyword">void</span> *key2);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 销毁键的函数</span></span><br><span class="line">    <span class="keyword">void</span> (*keyDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *key);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 销毁值的函数</span></span><br><span class="line">    <span class="keyword">void</span> (*valDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *obj);</span><br><span class="line"></span><br><span class="line">&#125; dictType;</span><br></pre></td></tr></table></figure></p>
+<p>rehash<br>rehash：</p>
+<p>哈希表的键值会不听的增多减少，为了让负载因子，维持在一个合理的范围，我们需要适当的进行扩展和收缩</p>
+<p>为字典的 ht[1] 哈希表分配空间， 这个哈希表的空间大小取决于要执行的操作， 以及 ht[0] 当前包含的键值对数量 （也即是 ht[0].used属性的值）：<br>如果执行的是扩展操作， 那么 ht[1] 的大小为第一个大于等于 ht[0].used * 2 的 2^n （2 的 n 次方幂）；<br>如果执行的是收缩操作， 那么 ht[1] 的大小为第一个大于等于 ht[0].used 的 2^n 2<br>将保存在 ht[0] 中的所有键值对 rehash 到 ht[1] 上面： rehash 指的是重新计算键的哈希值和索引值， 然后将键值对放置到 ht[1] 哈希表的指定位置上。<br>当 ht[0] 包含的所有键值对都迁移到了 ht[1] 之后 （ht[0] 变为空表）， 释放 ht[0] ， 将 ht[1] 设置为 ht[0] ， 并在 ht[1] 新创建一个空白哈希表， 为下一次 rehash 做准备。</p>
+<p>哈希表的扩展和收缩的条件：</p>
+<p>1：如果没有执行BSAVE或者BGREWRITEAOF,并且负载因子大于等于1</p>
+<p>2：如果执行BSAVE或者BGREWRITEAOF,并且负载因子大于等于5</p>
+<p>这样设计是因为如果执行的话，会fork出新的进程，因为遵循写实复制，为了尽量避免写入内存进行复制，所以将负载因子提高一些</p>
+<p>如果负载因子小0.1执行收缩</p>
+<p>渐进事rehash：</p>
+<p>因为哈希表的数据可能特别的多，所有rehash不是一次完成的，是多次分批完成的，这里就用到了reashindex，最开始rehashindex=0，表示对索引值0指向的复制，结束了，开始索引值1的，rehashindx+1，这个过程中如果查找的话，会先查找ht[0]-&gt;ht[1]，添加的话都会添加大1里面，这样可能保证服务器正常的运作</p>
+<h6 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h6><p>redis只在两个地方使用了跳跃表，一个是有序集合键，另一个是集群节点中用作内部数据结构<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 层</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		<span class="comment">// 前进指针</span></span><br><span class="line">		<span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forword</span>;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//跨度</span></span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">int</span> span;</span><br><span class="line"></span><br><span class="line">	&#125;level[];</span><br><span class="line"></span><br><span class="line">	<span class="comment">//后退指针</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//分值</span></span><br><span class="line">	<span class="keyword">double</span> score;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//成员对象</span></span><br><span class="line">	robj *obj;</span><br><span class="line"></span><br><span class="line">&#125;zskiplistNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">// 表头和表尾节点</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>,*<span class="title">tail</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//表中节点数量</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> length;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 表中层数最大的节点的层数</span></span><br><span class="line">	ine level;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;zskiplist;</span><br></pre></td></tr></table></figure></p>
+<h6 id="整数集合"><a href="#整数集合" class="headerlink" title="整数集合"></a>整数集合</h6><p>当集合中所有元素都是整数且长度比较小的情况下redis就会使用整数集合intset<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//编码方式</span></span><br><span class="line">	<span class="keyword">uint32_t</span> encoding;</span><br><span class="line">	<span class="comment">//编码包含的元素对象</span></span><br><span class="line">	<span class="keyword">uint32_t</span> length;</span><br><span class="line">	<span class="comment">//保存元素的数组. 具体编码方式由encoding决定</span></span><br><span class="line">	<span class="keyword">int8_t</span> contents[];</span><br><span class="line"></span><br><span class="line">&#125;intset;</span><br><span class="line">如果原conetns所有的数据都是int32位，现在要加入<span class="number">64</span>位则需要升级</span><br><span class="line">将原数据全部升级成<span class="number">64</span>位然后重新放入扩容后的数组中</span><br></pre></td></tr></table></figure></p>
+<h6 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h6><p>// todo</p>
+<h6 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h6><p>由基本数据构成的数据库的键值对的类型<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//类型</span></span><br><span class="line">	<span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line">	<span class="comment">//编码</span></span><br><span class="line">	<span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line">	<span class="comment">// 指向底层实现数据结构的指针</span></span><br><span class="line">	<span class="keyword">void</span> *ptr;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;robj;</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span>,<span class="built_in">list</span>,hash,<span class="built_in">set</span>,zset</span><br></pre></td></tr></table></figure></p>
+<p>// todo</p>
+<h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><p>数据库主要由dict及expires两个字典构成，dict保存的是数据的键值对，expires保存的是键的失效时间</p>
+<h5 id="过期删除策略"><a href="#过期删除策略" class="headerlink" title="过期删除策略"></a>过期删除策略</h5><ul>
+<li>定时： 与键的过期时间一起生成一个定时器，到期删除<ul>
+<li>优点 效率高，内存释放快</li>
+<li>缺点占用CPU资源大</li>
+</ul>
+</li>
+<li>惰性： 过期了也不管当client来获取的时候判断过期了就删除<ul>
+<li>优点 节省CPU资源</li>
+<li>缺点 会存在大量的未访问且过期的key占用内存</li>
+</ul>
+</li>
+<li>定期：折中方案<br>redis使用了惰性和定期两种结合</li>
+</ul>
+<p>rdb： </p>
+<pre><code>- 写：save或者bgsave时过期的键不会存到文件中
+- 读： 主服务器：过期的键会被忽略 从服务器：全部读到内存中
+</code></pre><p>aof： </p>
+<pre><code>- 写入： 过期无影响；采用命令追加的方式
+- 重写： 重写过程中会排除已过期的键
+</code></pre><p>主从：</p>
+<pre><code>- 复制： 从服务器的删除由主服务器控制
+</code></pre><h5 id="数据库通知"><a href="#数据库通知" class="headerlink" title="数据库通知"></a>数据库通知</h5><p>数据库通知是redis2.8版本新增的功能，用户可以通过这个功能来获知数据库中键的变化</p>
+<ul>
+<li>某个键执行了什么命令的通知称为 key-space notifization</li>
+<li>某个命令被什么键执行了的通知称为 key-event notifization<br>//todo 具体实现参考redis设计与实现</li>
+</ul>
+<h5 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h5><p>创建命令：</p>
+<pre><code>- save： 阻塞所有线程直到RDB文件创建完成，服务器不能处理任何其他的请求 -&gt; jvm的gc，stoptheworld
+ - bgsave： 创建一个子线程去处理，父线程继续处理请求-&gt;个人理解=（backgroundsave）
+</code></pre><p>载入：</p>
+<pre><code>- 启动时自动载入RDB文件
+- 同时开启AOF和RDB时：AOF载入优先级高于RDB文件载入
+- 只有当AOF关闭时才会载入RDB文件
+</code></pre><p>命令互斥情况：<br>    写：</p>
+<pre><code>- save情况下服务器不能接受命令
+- bgsave：
+         - 和save互斥，拒绝
+         - 和bgsave互斥，拒绝
+         - 与bgrewriteaof可以共存但是要排队执行
+ 载入：
+ 载入状态阻塞线程不能接受任务命令
+</code></pre><p>自动设置保存间隔：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save 900 1 //900s内产生了一条数据变更</span><br><span class="line">save 300 10 // 300s内产生了10条数据变更</span><br><span class="line">save 60 1000 // 60s内产生了1000条数据变更</span><br></pre></td></tr></table></figure></p>
+<p>redis-server存储结构如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	saveparams *saveparams[];</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 修改计数器</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> dirty;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//上一次执行保存的时间</span></span><br><span class="line">	<span class="keyword">time_t</span> lastsave;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>redis serverCron每隔100ms扫瞄是否满足save条件，满足的话就执行bgsave；</p>
+<h5 id="RDB文件结构"><a href="#RDB文件结构" class="headerlink" title="RDB文件结构"></a>RDB文件结构</h5><p>REDIS|db_version|databases|EOF|check_sum<br>// todo 具体参考redis设计与实现</p>
+<h5 id="RDB文件fen分析"><a href="#RDB文件fen分析" class="headerlink" title="RDB文件fen分析"></a>RDB文件fen分析</h5><p>// todo 具体参考redis设计与实现</p>
+<h5 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h5><blockquote>
+<p>   为了提高效率当，现在的操作系统中用户调用write函数时，将数据写到文件时，操作系统会将写入的数据暂时保存在内存缓冲区中，等缓冲区被被填满才写入磁盘<br>   在这期间如果机器down机了会产生数据丢失的安全性问题<br>   为此操作系统提供了fsync和fdatasync两个同步函数强制让操作系统立即将缓冲区的数据写入磁盘</p>
+</blockquote>
+<p>个人理解-&gt;mysql binlog<br>AOF持久化分为append，文件写入，文件同步sync三个步骤</p>
+<ul>
+<li>append ： 当aof功能打开后，服务器执行的命令会在aof缓冲末尾追加一条指令</li>
+<li>文件写入与同步：在redis单线程无限循环的过程中会判断时候需要写入AOF文件，其行为由appendfsync选项来决定<ul>
+<li>always： 将aof_buf的所有内容写入并同步到文件<ul>
+<li>效率最慢，最安全</li>
+</ul>
+</li>
+<li>（default）everysec:  写入文件，且如果上次同步时间超过了1s，则再次同步<ul>
+<li>折中 较为安全，若丢失也只会丢失1s的数据</li>
+</ul>
+</li>
+<li>no： 写入文件单不同步<ul>
+<li>效率最快，但是写入文件由操作系统决定（即内存缓冲满等），会产生数据丢失的危险</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="AOF载入和数据还原"><a href="#AOF载入和数据还原" class="headerlink" title="AOF载入和数据还原"></a>AOF载入和数据还原</h6><p>AOF载入，server启动一个伪客户端读取AOF文件然后执行指令</p>
+<h6 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h6><p>AOF持久化过程中量会越来越大，还原所需时间越来越长，所以redis提供了aof重写，生成新旧两个文件，新文件会取出冗余的命令所以体积会小很多<br>重写实现：即读取key的最新状态实现插入操作，忽略过期的key<br>AOF后台重写：BGREWRITEAOF,开启子进程，父进程可以继续执行命令。<br>两个进程会造成在重写AOF期间产生的命令没有同步造成数据的不一致性。<br>redis设置了一个AOF重写缓冲区，redis在执行新命令时会往AOF缓冲区和AOF重写缓冲区同时写入数据<br>AOF重完成后香父进程发送信号，之后父进程将AOF重写缓冲区的数据写入的新的AOF文件中，然后进行改名，原子性覆盖AOF文件完成替换。此过程是阻塞父进程的。</p>
+<h5 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h5><p>redis系统的是一个事件驱动的程序，服务器需要处理两种事件</p>
+<ul>
+<li><p>文件事件</p>
+<ul>
+<li>套接字</li>
+<li>I/O多路复用程序</li>
+<li>文件事件分派器</li>
+<li>事件处理器<ul>
+<li>连接应答处理器</li>
+<li>命令请求处理器</li>
+<li>命令回复处理器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>时间事件</p>
+</li>
+</ul>
+<p>// todo </p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-06T07:21:41.000Z" itemprop="dateUpdated">2018-09-06 15:21:41</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/07/redis/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/07/redis/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="Cheng Cheng">
+            Cheng Cheng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/07/redis/&title=《redis》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/07/redis/&title=《redis》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/07/redis/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis》 — Hexo&url=https://chengbaobao630@github.io/2018/09/07/redis/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/07/redis/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/07/redis-cluster/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redis - cluster</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/07/algorithm/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">算法初探</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Cheng Cheng &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/07/redis/&title=《redis》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/07/redis/&title=《redis》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/07/redis/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis》 — Hexo&url=https://chengbaobao630@github.io/2018/09/07/redis/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/07/redis/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aQW7EIBAEwPz/046UUy7B3eCNZChO0coxFIfxMMzXVzyun9E+8/uX69fIf3l4YGBgvJZxDcd4yuQ9f5Hy/xo/g4GBcQ5jHEATRhtYx3Pla8PAwMDIFz1eXLI1GBgYGE8x5hK+p0IzBgbGyYxnj6BtIvivZ3EMDIwXMtqLgf/8+4P3GxgYGC9hXOXI37Zy3K1XhYGBsTVjPEEb+PIpV74MRYaLgYGxHSMvmbXHyOT9bcHuz4CLgYGxHaMou5cTt5vSFu8wMDDOYeQXim0jRZ4CtpcBN+/EwMDYjpEH1rw9Im+2WD/ERt8NDAyMlzPmAm679LlQnieIGBgYpzGShbZBeaWdIrkWxcDA2JvxVGm+LavNtWjcZLgYGBibMvJiWTLNOIzmxbvxvDerwsDA2I6RhMWlPo6g8WIu3GNgYJzDSILpuASWnI/zbVraSgwMjAMYc4fMnNFeZLbBFwMD42RGm9LNHXTb5rM64GJgYLyc0bZQtA0Z+Qbl895UDTEwMDZi5EnbyvE1KajNzYKBgXEaI3np+kVmtKwyMcXAwNib8YmXJpuSJ4iTT2JgYGzEuMrxuWr8XAvsTWqIgYGxBeMTF4pz4PFBt/0kYGBg7MdIgmxSOFspwM0llxgYGKcx1g+0bZFu/RCLgYGB0aaD+TNtOljccmBgYGBMpXpRYlcegzEwMM5ktI0X9TRBQpkU6TAwMM5kzLU4tBeKc9ecbdMGBgbGdoxvjjZGvO1gDuIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

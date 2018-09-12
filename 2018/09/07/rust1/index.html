@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>rust学习 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="rust">
+    <meta name="description" content="参考文档https://kaisery.github.io/trpl-zh-cn/foreword.htmlhttps://kaisery.gitbooks.io/rust-book-chinese/  rust学习之前在学习go语言与ruby语言，然后发现了rust这门语言，火狐浏览器使用rust重写后性能超越了chrome,因此就想看看主要说下想学习rust语言的原因：  性能刚刚的 go语">
+<meta name="keywords" content="rust">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rust学习">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/07/rust1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考文档https://kaisery.github.io/trpl-zh-cn/foreword.htmlhttps://kaisery.gitbooks.io/rust-book-chinese/  rust学习之前在学习go语言与ruby语言，然后发现了rust这门语言，火狐浏览器使用rust重写后性能超越了chrome,因此就想看看主要说下想学习rust语言的原因：  性能刚刚的 go语">
+<meta property="og:locale" content="chinese">
+<meta property="og:updated_time" content="2018-09-07T10:18:03.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rust学习">
+<meta name="twitter:description" content="参考文档https://kaisery.github.io/trpl-zh-cn/foreword.htmlhttps://kaisery.gitbooks.io/rust-book-chinese/  rust学习之前在学习go语言与ruby语言，然后发现了rust这门语言，火狐浏览器使用rust重写后性能超越了chrome,因此就想看看主要说下想学习rust语言的原因：  性能刚刚的 go语">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Cheng Cheng</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">rust学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">rust学习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-07T10:18:03.100Z" itemprop="datePublished" class="page-time">
+  2018-09-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rust学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">rust学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初体验"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">初体验</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#变量绑定"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">变量绑定</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#let"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">let</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表达式VS语句"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">表达式VS语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#return"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">return</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发散函数"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">发散函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数指针"><span class="post-toc-number">1.3.5.</span> <span class="post-toc-text">函数指针</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原生类型"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">原生类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bool"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">bool</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#char"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">char</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数字类型"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">数字类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数组"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">数组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#切片"><span class="post-toc-number">1.4.5.</span> <span class="post-toc-text">切片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#str"><span class="post-toc-number">1.4.6.</span> <span class="post-toc-text">str</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#元祖"><span class="post-toc-number">1.4.7.</span> <span class="post-toc-text">元祖</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#剩下的就是函数了"><span class="post-toc-number">1.4.8.</span> <span class="post-toc-text">剩下的就是函数了</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注释-略"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">注释 略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#if"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">if</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">循环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#loop"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">loop</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#while"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">while</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#for"><span class="post-toc-number">1.7.3.</span> <span class="post-toc-text">for</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Enumerate"><span class="post-toc-number">1.7.4.</span> <span class="post-toc-text">Enumerate</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环标签"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">循环标签</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#vector"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">vector</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-rust1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">rust学习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-07 18:18:03" datetime="2018-09-07T10:18:03.100Z"  itemprop="datePublished">2018-09-07</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>参考文档<br><a href="https://kaisery.github.io/trpl-zh-cn/foreword.html" target="_blank" rel="noopener">https://kaisery.github.io/trpl-zh-cn/foreword.html</a><br><a href="https://kaisery.gitbooks.io/rust-book-chinese/" target="_blank" rel="noopener">https://kaisery.gitbooks.io/rust-book-chinese/</a></p>
+</blockquote>
+<h1 id="rust学习"><a href="#rust学习" class="headerlink" title="rust学习"></a>rust学习</h1><p>之前在学习go语言与ruby语言，然后发现了rust这门语言，火狐浏览器使用rust重写后性能超越了chrome,因此就想看看<br>主要说下想学习rust语言的原因：</p>
+<ul>
+<li>性能刚刚的</li>
+<li>go语言比较蛋疼的类型安全和泛型,没没三目运算，蛋疼的错误处理</li>
+<li>ruby性能差异和完全无类型不安全-&gt;AI这么火不如学python （不过写个小工具自己用用还是很爽的&lt;-,-&gt;）</li>
+<li>未掌握一门系统级别语言</li>
+</ul>
+<p>基于以上几点开始了rust的学习之旅</p>
+<h2 id="初体验"><a href="#初体验" class="headerlink" title="初体验"></a>初体验</h2><p>在看了官方文档，跟着猜一猜走了一遍之后;这尼玛真和Java差太多了<br>不理解之处<br>let mut name:String =String::new();<br>io::stdin().read_line( &amp;mut name)<br>为什么这边需要在写一遍 &amp;mut 呢。。。<br>还有整个语法真的是比java还罗嗦。。。<br>还有作用域和Java变量作用域好像也不一样，traits是个啥<br>反正整个教程写下来是蒙逼的 -。- 好难啊<br>但是还是没有影响继续学习的心情，带着各种好奇和疑惑往下继续看</p>
+<h2 id="变量绑定"><a href="#变量绑定" class="headerlink" title="变量绑定"></a>变量绑定</h2><h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>各位前端同学有木有很熟悉！这尼玛不是ES6的玩意儿吗<br>继续往下看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = 1 ;</span><br><span class="line">x = 2</span><br></pre></td></tr></table></figure></p>
+<p>编译报错了！还好和JS还是有点不一样的 let的绑定不可以改变的<br>如果想要在之后改变绑定的值需要在申明时加上mut<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> x = <span class="number">1</span>;</span><br><span class="line">x = <span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
+<p>和其他语言相比来说<br><del>let = kotlin中的val = java中的final</del><br><del>let mut = kotlin中的var = java中的普通变量的申明</del><br><strong>刚看到这边的时候是这么理解的，但是看到后面发现是错的，java和kotlin中的final，val指的是这个引用指向的对象是不可以变的，但是如果是复杂对象之类的 他的内容是可变的，比如append，add等但是在rust中非mut申明的对象是完全不可变的包括其内容说白了就是只能看不能动。。。</strong><br>之后又看到了<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> (x,y) = (<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这感觉是已经在很多语言中有的解构特性-关于这点用得最爽的还是js的…<br>rust中称为模式</p>
+<p>来到了java比较关心的类型<br>kotlin中var a= “s” 会自动推断出a是String类型，在rust中也一样<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="string">"s"</span>;</span><br><span class="line"><span class="keyword">let</span> i:<span class="built_in">i32</span> = <span class="number">1</span>;</span><br><span class="line">= val s = <span class="string">"s"</span></span><br><span class="line">val i:Int = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>作死的试了一下string<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="string">"s"</span>;</span><br><span class="line">s = <span class="built_in">String</span>::new();</span><br></pre></td></tr></table></figure></p>
+<p>mismatched types [E0308] expected <code>&amp;str</code>, found <code>String</code><br>看来还是没这么简单…</p>
+<p>方法体内变量的作用域还是和java大部分类似，不一样的是<br>rust允许重复申明并覆盖之前的变量<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">3</span>; <span class="comment">// x = 3</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">4</span>; <span class="comment">// 不会报错x = 4</span></span><br></pre></td></tr></table></figure></p>
+<p>这一章看下来rust身上还是有很多不同语言的影子</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    print_number(5);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn print_number(x: i32) &#123;</span><br><span class="line">    println!(&quot;x is: &#123;&#125;&quot;, x);</span><br><span class="line">&#125;</span><br><span class="line">fn add_one(x: i32) -&gt; i32 &#123;</span><br><span class="line">    x + 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>rust接口参数必须要有类型</li>
+<li>返回值是以 -&gt; 的形式指定</li>
+<li>x + 1 这里不能有; 引出了rust表达式VS语句</li>
+</ul>
+<h3 id="表达式VS语句"><a href="#表达式VS语句" class="headerlink" title="表达式VS语句"></a>表达式VS语句</h3><blockquote>
+<p>Rust 主要是一个基于表达式的语言。只有两种语句，其它的一切都是表达式。<br>然而这又有什么区别呢？表达式返回一个值，而语句不是。这就是为什么这里我们以“不是所有控制路径都返回一个值”结束：x + 1;语句不返回一个值。Rust 中有两种类型的语句：“声明语句”和“表达式语句”。其余的一切是表达式。让我们先讨论下声明语句。<br>在一些语言中，变量绑定可以被写成一个表达式，不仅仅是语句。例如 Ruby：<br>x = y = 5<br>然而，在 Rust 中，使用let引入一个绑定并不是一个表达式。下面的代码会产生一个编译时错误：<br>let x = (let y = 5); // expected identifier, found keyword <code>let</code><br>编译器告诉我们这里它期望看到表达式的开头，而let只能开始一个语句，不是一个表达式。<br>注意赋值一个已经绑定过的变量（例如，y = 5）仍是一个表达式，即使它的（返回）值并不是特别有用。不像其它语言中赋值语句返回它赋的值（例如，前面例子中的5），在 Rust 中赋值的值是一个空的元组()：<br>let mut y = 5;</p>
+<p>let x = (y = 6);  // <code>x</code> has the value <code>()</code>, not <code>6</code>.<br>Rust中第二种语句是表达式语句。它的目的是把任何表达式变为语句。在实践环境中，Rust 语法期望语句后跟其它语句。这意味着你用分号来分隔各个表达式。这意味着Rust看起来很像大部分其它使用分号做为语句结尾的语言，并且你会看到分号出现在几乎每一行你看到的 Rust 代码。<br>那么我们说“几乎”的例外是神马呢？你已经见过它了，在这些代码中：<br>fn add_one(x: i32) -&gt; i32 {<br>   x + 1<br>}<br>我们的函数声称它返回一个i32，但是带上个分号，它就会返回一个()。Rust意识到这大概不是我们想要的，并在之前我们看到的错误中建议去掉分号。</p>
+</blockquote>
+<p>这一段直接引用的官方的话术。<br>大致理解下来除了两种类型的语句其他的都属于表达式，而表达式是有返回值的，语句是没有的<br>所以 x + 1 ; 是一个语句 所以没有返回值 x + 1是一个表达式 返回的是一个数值<br>注意点</p>
+<ul>
+<li>let开头的只能是一个语句，不是表达式</li>
+<li>let x = (y = 6);     y = 6 是一个表达式 返回的是一个空元祖 所以x =()<br>第二种就是表达式语句<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">add_one</span></span>(x: <span class="built_in">i32</span>) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">    x + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="return"><a href="#return" class="headerlink" title="return"></a>return</h3><p>return 的用法和别的语言一致</p>
+<h3 id="发散函数"><a href="#发散函数" class="headerlink" title="发散函数"></a>发散函数</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Rust有些特殊的语法叫“发散函数”，这些函数并不返回：</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">diverges</span></span>() -&gt; ! &#123;</span><br><span class="line">    <span class="built_in">panic!</span>(<span class="string">"This function never returns!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>panic 可以看作类似java 的throw Exception 它本身是一个宏。<br>这个函数有一个返回值！他代表发散  发散函数可以被用作任何类型<br>运行该函数之后会获得一个报错并终止main线程<br>thread ‘main’ panicked at ‘This function never returns!’, hello.rs:2</p>
+<p>如果你想要更多信息，你可以设定RUST_BACKTRACE环境变量来获取 backtrace ：<br>具体参考官方文档这里就不细说了</p>
+<h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p>这个部分大致类似与函数编程的概念，函数是第一公民？<br>不过官方文档来看。。。怎么看都像是alias重命名的功能</p>
+<p>官方的函数这一章比较简单就讲了这么多</p>
+<h2 id="原生类型"><a href="#原生类型" class="headerlink" title="原生类型"></a>原生类型</h2><p>比较常用和简单的就不做介绍了</p>
+<h3 id="bool"><a href="#bool" class="headerlink" title="bool"></a>bool</h3><h3 id="char"><a href="#char" class="headerlink" title="char"></a>char</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> two_hearts = '💕';</span><br></pre></td></tr></table></figure>
+<p>官方这就有点调皮了，这两颗心都可以作为char也就意味着rust的char不是java中的一个字节，是4个字节</p>
+<h3 id="数字类型"><a href="#数字类型" class="headerlink" title="数字类型"></a>数字类型</h3><p>参考官方文档</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组默认是不可变的！<br>rust 数组的表示法是[T;N] T是java中比较熟悉的泛型标识符,N是编译时常量代表数组的长度<br>let a = [0;20] 申明一个长度为20的数组所有值为0的数组</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>&amp;t[…]</p>
+<h3 id="str"><a href="#str" class="headerlink" title="str"></a>str</h3><p>看来之前我使用的String::new()并不是基本数据类型</p>
+<h3 id="元祖"><a href="#元祖" class="headerlink" title="元祖"></a>元祖</h3><p>固定大小的有序集合</p>
+<h3 id="剩下的就是函数了"><a href="#剩下的就是函数了" class="headerlink" title="剩下的就是函数了"></a>剩下的就是函数了</h3><p>官方那个文档中大致讲了这么多，之后会详细展开</p>
+<h2 id="注释-略"><a href="#注释-略" class="headerlink" title="注释 略"></a>注释 略</h2><h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>官方单独的把if拿出来讲，估计主要还是看下他的新特点<br>如</p>
+<ul>
+<li>if 后面不需要小括号</li>
+<li>if可以直接作为表达式 - 同kotlin<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">let y = <span class="keyword">if</span> x == <span class="number">5</span> &#123;</span><br><span class="line">    <span class="number">10</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="number">15</span></span><br><span class="line">&#125;; <span class="regexp">//</span> <span class="symbol">y:</span> i32</span><br><span class="line">你可以（或许也应该）这么写：</span><br><span class="line">let x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">let y = <span class="keyword">if</span> x == <span class="number">5</span> &#123; <span class="number">10</span> &#125; <span class="keyword">else</span> &#123; <span class="number">15</span> &#125;; <span class="regexp">//</span> <span class="symbol">y:</span> i32</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>这是一个无限循环 break跳出，continue跳过单轮</p>
+<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><h3 id="for"><a href="#for" class="headerlink" title="for"></a>for</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> expression &#123;</span><br><span class="line">    code</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="number">1</span>..<span class="number">10</span>&#123;</span><br><span class="line">    <span class="comment">//todo</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Enumerate"><a href="#Enumerate" class="headerlink" title="Enumerate"></a>Enumerate</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (index, value) <span class="keyword">in</span> (<span class="number">5</span>..<span class="number">10</span>).enumerate() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"index = &#123;&#125; and value = &#123;&#125;"</span>, index, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">index = <span class="number">0</span> and value = <span class="number">5</span></span><br><span class="line">index = <span class="number">1</span> and value = <span class="number">6</span></span><br><span class="line">index = <span class="number">2</span> and value = <span class="number">7</span></span><br><span class="line">index = <span class="number">3</span> and value = <span class="number">8</span></span><br><span class="line">index = <span class="number">4</span> and value = <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>类似 kotlin 的withindex函数遍历的时候带上索引</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> lines = <span class="string">"hello\nworld"</span>.lines();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (linenumber, line) <span class="keyword">in</span> lines.enumerate() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"&#123;&#125;: &#123;&#125;"</span>, linenumber, line);</span><br><span class="line">&#125;</span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line"><span class="number">0</span>: hello</span><br><span class="line"><span class="number">1</span>: world</span><br></pre></td></tr></table></figure>
+<h2 id="循环标签"><a href="#循环标签" class="headerlink" title="循环标签"></a>循环标签</h2><p>循环跳出到标签位置<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">'outer</span>: <span class="keyword">for</span> x <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span> &#123;</span><br><span class="line">    <span class="symbol">'inner</span>: <span class="keyword">for</span> y <span class="keyword">in</span> <span class="number">0</span>..<span class="number">10</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span> &#123; <span class="keyword">continue</span> <span class="symbol">'outer</span>; &#125; <span class="comment">// Continues the loop over `x`.</span></span><br><span class="line">        <span class="keyword">if</span> y % <span class="number">2</span> == <span class="number">0</span> &#123; <span class="keyword">continue</span> <span class="symbol">'inner</span>; &#125; <span class="comment">// Continues the loop over `y`.</span></span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"x: &#123;&#125;, y: &#123;&#125;"</span>, x, y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h2><p>这可以理解为一个可变的数组但是他和slice有什么区别呢<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]; <span class="comment">// v: Vec&lt;i32&gt;</span></span><br><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">0</span>; <span class="number">10</span>]; <span class="comment">// ten zeroes</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>vector只能用usize类型的下标来访问</li>
+<li>越界会有抛出panic异常</li>
+<li>在使用vector所有权遍历之后再次遍历他，可以使用引用形式遍历</li>
+</ul>
+<p>对所有权还是很蒙逼 先看完文档 在自己多练吧</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-07T10:18:03.076Z" itemprop="dateUpdated">2018-09-07 18:18:03</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/07/rust1/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/07/rust1/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="Cheng Cheng">
+            Cheng Cheng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rust/">rust</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/07/rust1/&title=《rust学习》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/07/rust1/&title=《rust学习》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/07/rust1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《rust学习》 — Hexo&url=https://chengbaobao630@github.io/2018/09/07/rust1/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/07/rust1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/10/rust-struct/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">rust_struct</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/07/reactor-leaing/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">reactor</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Cheng Cheng &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/07/rust1/&title=《rust学习》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/07/rust1/&title=《rust学习》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/07/rust1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《rust学习》 — Hexo&url=https://chengbaobao630@github.io/2018/09/07/rust1/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/07/rust1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aS27DMBAEUd//0gqQlRcRXT3DGNCwuAocmeLjoj38vF64Xb8tfeb9k+ut8U82NxkyZDyWcS0bfwHpYc1bv/fuGRkyZJzDWAfoelh3GP5dAv4wZhkyZMhYhiAZHJkaGTJkyNjL4AHNh5LGugwZMk5j1Jag637S2P3SWlyGDBkPZKQHA9/8+x/PN2TIkPEQxhW29DCAxDGP4Nt3yZAhYzQjLen6udf/ZQgqXBkyZIxgdBaNfCjkgCHdsLv93ZAhQ8Y4Rj/s+sNKJ3HbppsMGTIexUijjUcwma009G/7lCFDxmhGsN4t4feeVwQ9y5AhYzSjFnykmCPTlBaIMmTIOI3RHwo/pOxXdzJkyDiBkYYa3z7jx5Y8fG/7lyFDxmhGf7Ns76KXRPOHqZEhQ8ZQRvq1YtW59bKFDBkyTmNsKMhwcPNisTOVMmTImMeoXfbipWQtNONJlCFDxlAGf7QWlGmRx6+a/bFrKEOGjKEMXg7yaI7r0PCqx4eJkyFDxjgGf01tuJ2ik5eMMmTIOI1R67QTr2nR2dpokyFDxgMZPBz7G/etw8j+saUMGTIey7jC1tlKI28kE/FhEStDhoxxjH4B1z/I5Ft4vJSUIUPGPEYagrULE/yoko9BhgwZpzFqIUsKu3W6p5t0MmTIkJGGIN+qSy9qFE85ZMiQIQMsWTtUvgyWIUPGmYzaZj3vIZ0OXnrKkCHjBEbtigMP0PS/nY0/GTJkjGP8ANmY/vUCUodyAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

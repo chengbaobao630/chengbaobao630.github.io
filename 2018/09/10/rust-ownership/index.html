@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>rust所有权 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="rust,所有权">
+    <meta name="description" content="参考文档https://kaisery.github.io/trpl-zh-cn/foreword.htmlhttps://kaisery.gitbooks.io/rust-book-chinese/  rust所有权学习rust的所有权主要是用来 做 垃圾回收的处理，和java，go等语言不一样的是 他没有独立的垃圾回收机制  在我们开始详细讲解之前，这有两点关于所有权系统重要的注意事项。 R">
+<meta name="keywords" content="rust,所有权">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rust所有权">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/10/rust-ownership/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考文档https://kaisery.github.io/trpl-zh-cn/foreword.htmlhttps://kaisery.gitbooks.io/rust-book-chinese/  rust所有权学习rust的所有权主要是用来 做 垃圾回收的处理，和java，go等语言不一样的是 他没有独立的垃圾回收机制  在我们开始详细讲解之前，这有两点关于所有权系统重要的注意事项。 R">
+<meta property="og:locale" content="chinese">
+<meta property="og:updated_time" content="2018-09-08T02:06:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rust所有权">
+<meta name="twitter:description" content="参考文档https://kaisery.github.io/trpl-zh-cn/foreword.htmlhttps://kaisery.gitbooks.io/rust-book-chinese/  rust所有权学习rust的所有权主要是用来 做 垃圾回收的处理，和java，go等语言不一样的是 他没有独立的垃圾回收机制  在我们开始详细讲解之前，这有两点关于所有权系统重要的注意事项。 R">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Cheng Cheng</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">rust所有权</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">rust所有权</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-10T01:38:18.939Z" itemprop="datePublished" class="page-time">
+  2018-09-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rust所有权学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">rust所有权学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#所有权"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">所有权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#移动语义"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">移动语义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#细节-参考文档"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">细节 参考文档</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#copy"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">copy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#所有权之外（More-than-ownership"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">所有权之外（More than ownership)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引用和借用"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">引用和借用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#可变引用"><span class="post-toc-number">1.2.0.1.</span> <span class="post-toc-text">可变引用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据竞争"><span class="post-toc-number">1.2.0.2.</span> <span class="post-toc-text">数据竞争</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生命周期"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">生命周期</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#语法"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">语法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-struct中"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">在 struct中</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-rust-ownership"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">rust所有权</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-10 09:38:18" datetime="2018-09-10T01:38:18.939Z"  itemprop="datePublished">2018-09-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>参考文档<br><a href="https://kaisery.github.io/trpl-zh-cn/foreword.html" target="_blank" rel="noopener">https://kaisery.github.io/trpl-zh-cn/foreword.html</a><br><a href="https://kaisery.gitbooks.io/rust-book-chinese/" target="_blank" rel="noopener">https://kaisery.gitbooks.io/rust-book-chinese/</a></p>
+</blockquote>
+<h1 id="rust所有权学习"><a href="#rust所有权学习" class="headerlink" title="rust所有权学习"></a>rust所有权学习</h1><p>rust的所有权主要是用来 做 垃圾回收的处理，和java，go等语言不一样的是 他没有独立的垃圾回收机制</p>
+<blockquote>
+<p>在我们开始详细讲解之前，这有两点关于所有权系统重要的注意事项。</p>
+<p>Rust 注重安全和速度。它通过很多零开销抽象（zero-cost abstractions）来实现这些目标，也就是说在 Rust 中，实现抽象的开销尽可能的小。所有权系统是一个典型的零开销抽象的例子。本文提到所有的分析都是在编译时完成的。你不需要在运行时为这些功能付出任何开销。</p>
+<p>然而，这个系统确实有一个开销：学习曲线。很多 Rust 初学者会经历我们所谓的“与借用检查器作斗争”的过程，也就是指 Rust 编译器拒绝编译一个作者认为合理的程序。这种“斗争”会因为程序员关于所有权系统如何工作的基本模型与 Rust 实现的实际规则不匹配而经常发生。当你刚开始尝试 Rust 的时候，你很可能会有相似的经历。然而有一个好消息：更有经验的 Rust 开发者反映，一旦他们适应所有权系统一段时间之后，与借用检查器的冲突会越来越少。</p>
+</blockquote>
+<p> 记住这些之后，让我们来学习关于所有权的内容。</p>
+<h2 id="所有权"><a href="#所有权" class="headerlink" title="所有权"></a>所有权</h2><blockquote>
+<p>Rust 中的变量绑定有一个属性：它们有它们所绑定的的值的所有权。这意味着当一个绑定离开作用域，它们绑定的资源就会被释放。</p>
+</blockquote>
+<p>这句话大致的意思是<code>let x = vec![1,2,3];</code> 中 x  拥有vec![1,2,3]这个值的所有权<br>那么 <code>{ let x = vec![1,2,3]} // ==&gt; x已经被销毁</code>在出了后面的<code>}</code>后x就被销毁了<br>暂时可以理解为 在一定范围内 引用完全的持有对象的权利 ，但是出了 这个范围关于这个绑定关系的一切都会被销毁，堆栈上都会被销毁</p>
+<p>其实看到这里觉得并没有什么特别的，{} 这个作用域对很多语言来说 都是一样的，像java中对象离开作用域之后会断开引用关系，在堆中成为所谓的游离态，等待垃圾回收器来清理，那java也可以检测到对象离开了作用域，但是很有可能的是这个对象的引用被传到了作用域的外面等复杂的情况，考虑到这些所以并没有在对象离开作用域之后立即销毁（纯属猜测～～～），那么对于这种情况rust是怎么处理的呢。</p>
+<h3 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h3><p>rust保证一个对象在内存中只有一个一一对应的引用。（这个就有点神奇了。。。）<br>上代码<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> v2 = v;</span><br><span class="line"></span><br><span class="line">不过，如果之后我们尝试使用v，我们得到一个错误：</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> v = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> v2 = v;</span><br><span class="line"></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">"v[0] is: &#123;&#125;"</span>, v[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">它看起来像这样：</span><br><span class="line"></span><br><span class="line">error: <span class="keyword">use</span> of moved value: `v`</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">"v[0] is: &#123;&#125;"</span>, v[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>前两行代码在java 中看来 应该是 v =&gt; vecotr的一个对象 ，然后新增一个引用也指向这个对象<br>但是在rust中表示将v =&gt; vector这个对象的原先引用销毁，并新建一个v2引用指向这个对象，确实是保证了引用和对象的一一对应关系 （好像没什么luan用），在实际的语句中肯定没什么用处，你不会写代码写着写着看这个引用不爽 然后换一个。。。那么影响大的地方肯定是函数的参数，到底是怎么传递的<br>当你把这个对象传递给某个方法时，方法会新指定一个引用去接受这个对象，那么按照上面的原则，在这个方法后，这个对象的引用已经被销毁了，无法进行操作了。（有点反人类，不过好像很有道理的样子～～～）,那就是所有权转移？</p>
+<h3 id="细节-参考文档"><a href="#细节-参考文档" class="headerlink" title="细节 参考文档"></a>细节 参考文档</h3><h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p>在上面的例子中我们使用到的对象是复杂类型，也就是非rust原生的类型，换成在java中的理解（个人理解）上面的操作 属于引用传递，明显在rust中被拒绝了，那么java中还有一种是值传递，我原本以为rust中也会有但是并没有说反而是设计了一种默认copy的规则<br>在rust中trait的copy行为会改变上述转移的规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x = 1;</span><br><span class="line">let x2 = x;</span><br></pre></td></tr></table></figure></p>
+<p>因为x 是i32类型他实现了copy，那么这个语句的语义就发生了变化：copy 一份 x 的对象给新的引用x2 那么x及x2都是可以使用的。</p>
+<h3 id="所有权之外（More-than-ownership"><a href="#所有权之外（More-than-ownership" class="headerlink" title="所有权之外（More than ownership)"></a>所有权之外（More than ownership)</h3><p>就是为了解决方法内外传递参数的问题，引出了trait的借用。。。看来trait这玩意儿还是在rust中占据重要地位 </p>
+<p>slices 是一种特殊的没有所有权的类型<br>这里说一下我对这句话的理解<br>slices是只对现有某一对象的某一段内存的一个新的引用指针，所以这个对象的所有权还是原始指向他的引用，而且slices是不可变的，那也就不存在竞争之类的关系<br>所以他并不需要一个单独的所有权，一定是安全的。<br>参考 <a href="https://kaisery.github.io/trpl-zh-cn/ch04-03-slices.html" target="_blank" rel="noopener">Slices</a></p>
+<h2 id="引用和借用"><a href="#引用和借用" class="headerlink" title="引用和借用"></a>引用和借用</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">foo</span></span>(v1: <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;, v2: <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; (<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;, <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;, <span class="built_in">i32</span>) &#123;</span><br><span class="line">    <span class="comment">// Do stuff with `v1` and `v2`.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Hand back ownership, and the result of our function.</span></span><br><span class="line">    (v1, v2, <span class="number">42</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> v1 = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> v2 = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> (v1, v2, answer) = foo(v1, v2);</span><br></pre></td></tr></table></figure>
+<p>上面这段代码展示了引用和所有权出现的问题，恶心的代码就是用完之后还要还回去才能在上一层调用后继续使用，引出了借用的概念<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="comment">// Don't worry if you don't understand how `fold` works, the point here is that an immutable reference is borrowed.</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">sum_vec</span></span>(v: &amp;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> v.iter().fold(<span class="number">0</span>, |a, &amp;b| a + b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Borrow two vectors and sum them.</span></span><br><span class="line">    <span class="comment">// This kind of borrowing does not allow mutation through the borrowed reference.</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">foo</span></span>(v1: &amp;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;, v2: &amp;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">        <span class="comment">// Do stuff with `v1` and `v2`.</span></span><br><span class="line">        <span class="keyword">let</span> s1 = sum_vec(v1);</span><br><span class="line">        <span class="keyword">let</span> s2 = sum_vec(v2);</span><br><span class="line">        <span class="comment">// Return the answer.</span></span><br><span class="line">        s1 + s2</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> v1 = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">let</span> v2 = <span class="built_in">vec!</span>[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> answer = foo(&amp;v1, &amp;v2);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, answer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>官方的话就是说把直接的值传递变成了引用传递，就是借用了这个对象的引用的所有权<br>在另一份文档: <a href="https://kaisery.github.io/trpl-zh-cn/ch04-02-references-and-borrowing.html" target="_blank" rel="noopener">引用与借用</a>中有张图表明了其中的关系<br>即新的引用指向了原对象的引用（这不就是指针的指针的概念吗。。。）<br>那么当离开这个这个引用的作用域时就不会销毁对象和对象的引用，销毁的是对象的引用的引用。。。（可能rust在离开作用域时做了判断如果是引用直接指向对象的话就一起回收了，但是如果指向的是引用的话就只销毁这个引用本身（瞎猜的））</p>
+<h4 id="可变引用"><a href="#可变引用" class="headerlink" title="可变引用"></a>可变引用</h4><p>但是问题来了，官方下一个例子又颠覆了理解，还记得最早官方介绍的时候说lei x = 1;中x是不可变的么。。，在上述例子中，就算引用指向的对象是mut的，而且传入方法内部的是对象的引用，即产生了借用的行为，这个对象也是不可以更改和操作的。WTF！！！什么鬼<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line"></span><br><span class="line">    change(&amp;s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">change</span></span>(some_string: &amp;<span class="built_in">String</span>) &#123;</span><br><span class="line">    some_string.push_str(<span class="string">", world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你写了上面的代码 是会 报错的！！！引用的值也是不允许修改的。。。关键是 我特么这没改啊，我只是在原对象上的内存里面修改了点东西啊。。。这都不行，反正这点有点难以理解。<br>换句话 说 只要不是mut指定的对象 用java的概念来理解就是只能get不能set，前提是做了封装不能对外暴露public变量。好吧那我之前的理解还是有错的，上一章中讲到<code>let x = 1;</code>类似java的final和kotlin的val这个理解是错的。-_-|||</p>
+<p>那么怎么才嫩更改这个引用的对象呢，其实还是和之前一样就是在引用上加上mut：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line"></span><br><span class="line">    change(&amp;<span class="keyword">mut</span> s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">change</span></span>(some_string: &amp;<span class="keyword">mut</span> <span class="built_in">String</span>) &#123;</span><br><span class="line">    some_string.push_str(<span class="string">", world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个mut还不行 要俩！！！我了个去～ 如果只加了 第一个 那只表示这个对象是可变的传递的引用是不可变的，方法内部是通过这个对象的直接引用来操作这个对象，引用那一关就把你拒绝了根本到不了对象，所以这是一层一层的啊尼玛。<br>综合了 let不可变的特性，对象转移的特性（直接传递对象会销毁原有引用）造就了上面这段非人类的代码，还是那句话，好像很有道理的样子～！<br>不要着急还有更恶心的：</p>
+<blockquote>
+<p>不过可变引用有一个很大的限制：在特定作用域中的特定数据有且只有一个可变引用。这些代码会失败：</p>
+<p>文件名: src/main.rs</p>
+<p>let mut s = String::from(“hello”);</p>
+<p>let r1 = &amp;mut s;<br>let r2 = &amp;mut s;</p>
+</blockquote>
+<h4 id="数据竞争"><a href="#数据竞争" class="headerlink" title="数据竞争"></a>数据竞争</h4><blockquote>
+<p>数据竞争（data race）是一种特定类型的竞争状态，它可由这三个行为造成：</p>
+<pre><code>两个或更多指针同时访问同一数据。
+至少有一个这样的指针被用来写入数据。
+不存在同步数据访问的机制。
+</code></pre></blockquote>
+<p>在上述代码中稍作修改：<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> s = <span class="built_in">String</span>::from(<span class="string">"hello"</span>);</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> r1 = &amp;<span class="keyword">mut</span> s;</span><br><span class="line"></span><br><span class="line">&#125; <span class="comment">// r1 goes out of scope here, so we can make a new reference with no problems.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> r2 = &amp;<span class="keyword">mut</span> s;</span><br></pre></td></tr></table></figure></p>
+<p>是可以编译通过的，是因为新开了一个作用域</p>
+<p><strong>不能在一个作用域内同时拥有可变和不可变两种引用</strong> -):</p>
+<blockquote>
+<p>哇哦！我们 也 不能在拥有不可变引用的同时拥有可变引用。不可变引用的用户可不希望在它的眼皮底下值突然就被改变了！然而，多个不可变引用是没有问题的因为没有哪个只能读取数据的人有能力影响其他人读取到的数据。<br>   尽管这些错误有时使人沮丧，但请牢记这是 Rust 编译器在提早指出一个潜在的 bug（在编译时而不是运行时）并明确告诉你问题在哪，而不是任由你去追踪为何有时数据并不是你想象中的那样。</p>
+</blockquote>
+<p>这就有点过头了。。感觉rust的宗旨就是：程序员是垃圾，不好意思我不是针对你，我说的是在座的各位。。。<br>一副完全不相信程序员的嘴脸。。。话虽这么说，确实是安全了，指不定trait这个神奇的的东西会给我们带来点惊喜</p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>现在大多数的框架，架构，甚至语言中大家都会听到生命周期这个东西，生命周期是指一个对象从出生到死亡的整个过程。<br>现在我们来看下rust中的生命周期是指什么<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">skip_prefix</span></span>(line: &amp;<span class="built_in">str</span>, prefix: &amp;<span class="built_in">str</span>) -&gt; &amp;<span class="built_in">str</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">#   line</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> line = <span class="string">"lang:en=Hello World!"</span>;</span><br><span class="line"><span class="keyword">let</span> lang = <span class="string">"en"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> v;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> p = <span class="built_in">format!</span>(<span class="string">"lang:&#123;&#125;="</span>, lang);  <span class="comment">// -+ `p` comes into scope.</span></span><br><span class="line">    v = skip_prefix(line, p.as_str());  <span class="comment">//  |</span></span><br><span class="line">&#125;                                       <span class="comment">// -+ `p` goes out of scope.</span></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, v);</span><br></pre></td></tr></table></figure></p>
+<p>我们先看上面这段函数，从我已知的语言来说，这都是可以编译运行或者解释运行的，但是在rust中这个是会编译报错的。为什么呢。<br><code>skip_peifix</code>这个函数接受两个str引用并返回一个，但是两个str的作用域是不一样的，会导致编译器无法判断返回的是哪一个作用域的引用，会不会导致运行期的异常，这点就是更神奇的地方了，别的编译器都是来配合人，而rust里面我们要来配合编译器达到最终一个更好，更安全的程序。所以官方提示我们需要这样来修改我们的代码<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">skip_prefix</span></span>&lt;<span class="symbol">'a</span>, <span class="symbol">'b</span>&gt;(line: &amp;<span class="symbol">'a</span> <span class="built_in">str</span>, prefix: &amp;<span class="symbol">'b</span> <span class="built_in">str</span>) -&gt; &amp;<span class="symbol">'a</span> <span class="built_in">str</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">#   line</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>指定作用域，也就是指定生命周期，&lt;’a,’b&gt; 关于这个&lt;&gt;有过java经验的同学应该很熟悉这个叫做泛型参数，那么这个’a看了rust官方文档的同学应该还有影响，在做label跳转的时候用到了，这么做意图是告诉编译器，返回的line与a有同样的生命周期那么他会做下面的检查。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>参考官方</p>
+<h3 id="在-struct中"><a href="#在-struct中" class="headerlink" title="在 struct中"></a>在 struct中</h3><p>结构体都没说就开始讲这个好么。。。<br>之后生命周期的解释具体看官方文档吧<br>主要注意的应该是省略生命周期的以下几点</p>
+<blockquote>
+<p>   每一个被省略的函数参数成为一个不同的生命周期参数。<br>   如果刚好有一个输入生命周期，不管是否省略，这个生命周期被赋予所有函数返回值中被省略的生命周期。<br>   如果有多个输入生命周期，不过它们当中有一个是&amp;self或者&amp;mut self，self的生命周期被赋予所有省略的输出生命周期。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-09-08T02:06:50.000Z" itemprop="dateUpdated">2018-09-08 10:06:50</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/10/rust-ownership/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/10/rust-ownership/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="Cheng Cheng">
+            Cheng Cheng
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rust/">rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/所有权/">所有权</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/&title=《rust所有权》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/&title=《rust所有权》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/10/rust-ownership/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《rust所有权》 — Hexo&url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/11/interview/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">面试题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/10/rust-struct/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">rust_struct</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Cheng Cheng &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/&title=《rust所有权》 — Hexo&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/&title=《rust所有权》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/10/rust-ownership/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《rust所有权》 — Hexo&url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/10/rust-ownership/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aQW4DMQgF0Nz/0um2VRP3A5NKYz+vomqa8GaBMPB4xOe5PMkzv5989/n7Xy4+GBgYt2VUQ5zDrno1GBgYpzHeZbDkmR4gSbhJbBgYGBjrZ96R1iEmbAwMDIwJIyrUlrzei8DAwMDIi7le7ytvyX38Lo6BgXFDRh7W/3/+yHwDAwPjVoxn8VT/Nwmrl45//AoGBsbWjF4rrXpxXb+I6IKaXIwxMDC2Zny6ubYGrEeY5WIRAwNjO0ae8vJQeomyOs58UeFiYGBszcgXs3prGT1kYQCAgYFxDCNvmeVttV6JWb76YmBgHMlI0vF6VJA835tRlvM0BgbGdox16sxb9tXCMS86X3wbBgbG1oxeEFddfau9/WSEgIGBsR+jugRWbdzno83qKsaLbREMDIwDGNWLaJV97bIFBgbGyYxemThZ0agODKJlCwwMjO0YV7X1J99QaKX1enIYGBhbMKrgSQNuvoqBgYFxDiMp0XoThklA1VYdBgbGaYx5Is7ZecKN2nAYGBgHMK4Ka3KJHd1VMTAwDmDkpV7+M70XVG3qYWBg7M14Fk/eGpuEVV47w8DA2JqRn94SWC+x5qGXMRgYGLdlVEcCk8tnPtosF6MYGBgHMCYLFjk4eWWjuzgGBgZGazGiF1a5rMTAwMAYFHPVxJ3cud+OBzAwMLZm9IYBk2WvakPtj0UxDAyMrRl5Adcr6eYDg8sGmRgYGPdjfAFyR/oIlxRXFgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
