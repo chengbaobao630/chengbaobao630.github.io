@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>servlet 理解 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,servlet">
+    <meta name="description" content="servlet 理解 java项目现在基本都是依赖spring框架，java web项目中如果不了解servlet其实不容易理解项目及spring是如何启动的如：  无web.xml启动 spring boot  参考文档：http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf   1、ServletContextservle">
+<meta name="keywords" content="java,servlet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="servlet 理解">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/14/servlet/index.html">
+<meta property="og:site_name" content="小橙子学习旅程～">
+<meta property="og:description" content="servlet 理解 java项目现在基本都是依赖spring框架，java web项目中如果不了解servlet其实不容易理解项目及spring是如何启动的如：  无web.xml启动 spring boot  参考文档：http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf   1、ServletContextservle">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-14T07:47:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="servlet 理解">
+<meta name="twitter:description" content="servlet 理解 java项目现在基本都是依赖spring框架，java web项目中如果不了解servlet其实不容易理解项目及spring是如何启动的如：  无web.xml启动 spring boot  参考文档：http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf   1、ServletContextservle">
+    
+        <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">程呈</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">servlet 理解</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">servlet 理解</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-14T07:47:33.000Z" itemprop="datePublished" class="page-time">
+  2018-09-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#servlet-理解"><span class="post-toc-number">1.</span> <span class="post-toc-text">servlet 理解</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-servlet"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">servlet 理解</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-14 15:47:33" datetime="2018-09-14T07:47:33.000Z"  itemprop="datePublished">2018-09-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="servlet-理解"><a href="#servlet-理解" class="headerlink" title="servlet 理解"></a>servlet 理解</h2><blockquote>
+<p>java项目现在基本都是依赖spring框架，java web项目中如果不了解servlet其实不容易理解项目及spring是如何启动的<br>如：</p>
+<ul>
+<li>无web.xml启动</li>
+<li>spring boot</li>
+</ul>
+<p>参考文档：<a href="http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf" target="_blank" rel="noopener">http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf</a></p>
+</blockquote>
+<hr>
+<p>1、ServletContext<br>servletContext 是整个项目唯一的上下文，在servlet初始化的时候可以在servletConfig中获取到 servletContext,这是之后spring与springweb启动时用到的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servletConfig.getServletContext();</span><br></pre></td></tr></table></figure></p>
+<p>2、ServletContextListener<br>这个监听器是web容器被加载启动时会被初始化的，ContextLoaderListener就是这个类的子类，所以我们会在web.xml中配置这个监听器并把spring配置传入，启动spring。<br>3、ServletContainerInitializer<br>servlet启动时会扫描所有jar包下和本项目中META-INF下services目录下的javax.servlet.ServletContainerInitializer文件，文件中写明自定义的ServletContainerInitializer全路径，web容器会在启动时去执行该类的onStartup方法并把HandlesTypes关心的类传入作为参数（HandlesTypes中关心的类一定要是父类或者接口，不能直接是某个类本身，亲测）</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-14T07:47:33.000Z" itemprop="dateUpdated">2018-09-14 15:47:33</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/14/servlet/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/14/servlet/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="程呈">
+            程呈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/servlet/&title=《servlet 理解》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/servlet/&title=《servlet 理解》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/servlet/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《servlet 理解》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/servlet/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/servlet/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/14/spring-boot-deploy(1)/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">spring-boot tomcat部署（war包）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/14/ruby1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ruby学习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>程呈 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/servlet/&title=《servlet 理解》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/servlet/&title=《servlet 理解》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/servlet/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《servlet 理解》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/servlet/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/servlet/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aQY7CMAwFUO5/6c4WCbX42x2kJi8rREvx68JKbL9e5XW8rc/vz+58v1r//PnM2xYGBsZjGcflShlnV6+fWfnfs3swMDD2YVSC6AV3/eTrtB48AQMDA2OQfHuJFQMDA2PCqGMqW8z6VQwMDIxKQkz/rJ64f3oWx8DAeCCjXnX//ed/6W9gYGA8inGEq7IpTFuS9fR6GhUGBsbSjHqCmzQAeuW5ePgDAwNjA0a9oDYZCLu35fCqhIuBgfFwxgRQT75poHHJDwMDYwNGJY3em9nSullQC8TAwFiO0RuwqI9f/PLoi4GBsSojLcr30mI6nBGnbAwMjM0YkwJZ+n1a1Dt9HRgYGEszKpfvCrTSthy1EDAwMJZmxCfd1lEz5Y2KdxgYGAsxJqWxXhB3DVtgYGDsw6in0V5zMX1NkwMtBgbG2oxeK7HC6w1Y9JoHGBgYazN6q34orW8u07SLgYGxDyNtDKQH1DSgtFSHgYGxM+P6cZMtYPqySmU4DAyMDRhBagsbmXftW4NyGwYGxtKM9JDZG+SaFNdOf4WBgbEo4whX2uxMU3Z9A3q6t8XAwFiOMWkD9A6flVDq9ze7tRgYGA9kVJJsmjQnAxm9JgQGBsYOjDTxpQHNWwtfXhkGBgZGeVPYG61oDlhgYGBgFBJuur2blPa+4DEwMDZg9ApnkzvTglpp2AIDA2NRxmhSYxBQWs67oZGJgYHxPMYfBEKyUF4o+28AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

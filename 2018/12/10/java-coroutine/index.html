@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java协程 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java">
+    <meta name="description" content="java-协程什么是协程大多数的开发人员可能对进程，线程这两个名字比较熟悉。但是为了追求最大力度的发挥硬件的性能和提升软件的速度，出现了协程或者叫纤程（Fiber），或者绿色线程（GreenThread）。那我们来聊下什么是协程，以及在java中是怎么体现和运用协程的。在说协程之前，我们先来回想下，现在大多数的程序中，都是使用了多线程技术来解决一些需要长时间阻塞的场景。JAVA中每个线程栈默认10">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java协程">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/12/10/java-coroutine/index.html">
+<meta property="og:site_name" content="小橙子学习旅程～">
+<meta property="og:description" content="java-协程什么是协程大多数的开发人员可能对进程，线程这两个名字比较熟悉。但是为了追求最大力度的发挥硬件的性能和提升软件的速度，出现了协程或者叫纤程（Fiber），或者绿色线程（GreenThread）。那我们来聊下什么是协程，以及在java中是怎么体现和运用协程的。在说协程之前，我们先来回想下，现在大多数的程序中，都是使用了多线程技术来解决一些需要长时间阻塞的场景。JAVA中每个线程栈默认10">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-10T07:52:37.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java协程">
+<meta name="twitter:description" content="java-协程什么是协程大多数的开发人员可能对进程，线程这两个名字比较熟悉。但是为了追求最大力度的发挥硬件的性能和提升软件的速度，出现了协程或者叫纤程（Fiber），或者绿色线程（GreenThread）。那我们来聊下什么是协程，以及在java中是怎么体现和运用协程的。在说协程之前，我们先来回想下，现在大多数的程序中，都是使用了多线程技术来解决一些需要长时间阻塞的场景。JAVA中每个线程栈默认10">
+    
+        <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">程呈</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java协程</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java协程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-10T02:20:22.873Z" itemprop="datePublished" class="page-time">
+  2018-12-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java-协程"><span class="post-toc-number">1.</span> <span class="post-toc-text">java-协程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是协程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">什么是协程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kilim原理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">kilim原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kilim模块"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">kilim模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Task"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">Task</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Scheduler"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">Scheduler</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#WorkerThread"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">WorkerThread</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RingQueue"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">RingQueue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Mailbox"><span class="post-toc-number">1.3.5.</span> <span class="post-toc-text">Mailbox</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#运用场"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">运用场</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#扩展"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">扩展</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-java-coroutine"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java协程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-10 10:20:22" datetime="2018-12-10T02:20:22.873Z"  itemprop="datePublished">2018-12-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="java-协程"><a href="#java-协程" class="headerlink" title="java-协程"></a>java-协程</h1><h2 id="什么是协程"><a href="#什么是协程" class="headerlink" title="什么是协程"></a>什么是协程</h2><p>大多数的开发人员可能对进程，线程这两个名字比较熟悉。但是为了追求最大力度的发挥硬件的性能和提升软件的速度，出现了协程或者叫纤程（Fiber），或者绿色线程（GreenThread）。那我们来聊下什么是协程，以及在java中是怎么体现和运用协程的。<br>在说协程之前，我们先来回想下，现在大多数的程序中，都是使用了多线程技术来解决一些需要长时间阻塞的场景。JAVA中每个线程栈默认1024K，没有办法开成千上万个线程，而且就算通过JVM参数调小，CPU也无法分配时间片给每个现场，大多数的线程还是在等待中，所以我们一般会使用Runtime.getRuntime().availableProcessors()来配置线程数的大小（或者会根据实际情况调整，就不展开讨论了）,但是就算是我们开了新的线程,该线程也可能是在等待系统IO的返回或者网络IO的返回,而且线程的切换有着大量的开销。<br>为了解决上面说的问题，大家可能会想到回调。现在很多框架都是基于回调来解决那些耗时的操作。但层数嵌套多了反而会引起反人类的回调地狱，并且回调后就丢失原函数的上下文。其中的代表呢就比如说nodeJs。<br>终于可以来聊聊协程。它的基本原理是:在某个点挂起当前的任务，并且保存栈信息，去执行另一个任务；等完成或达到某个条件时，在还原原来的栈信息并继续执行。上面提到的几个点大家会想到JVM的结构，栈，  程序计数器等等，但是JVM原生是不支持这样的操作的（至少java是不支持的，kotlin是可以的）。因此如果要在纯java代码里需要使用协程的话需要引入第三方包，如kilim。</p>
+<h2 id="kilim原理"><a href="#kilim原理" class="headerlink" title="kilim原理"></a>kilim原理</h2><blockquote>
+<p>1、利用字节码增强，将普通的java代码转换为支持协程的代码。<br>2、在调用pausable方法的时候，如果pause了就保存当前方法栈的State，停止执行当前协程，将控制权交给调度器<br>3、调度器负责调度就绪的协程<br>4、协程resume的时候，自动恢复State，根据协程的pc计数跳转到上次执行的位置，继续执行。</p>
+</blockquote>
+<p>这些第三方的框架大部分实现是一致的。通过ASM对字节码直接操作，在编译期把你写的代码变为支持协程的版本，并在运行时把你所有需要用到协程的部分由他来控制和调度。这样就可以做到保存和还原栈信息,举个栗子,kilim官网的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原代码</span></span><br><span class="line"><span class="meta">@Pausable</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">    x = ...;</span><br><span class="line">    b();</span><br><span class="line">    print(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 转换后的代码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">(Fiber f)</span></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(f.pc)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>: goto START;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: goto CALL_B</span><br><span class="line">    &#125;</span><br><span class="line">START:</span><br><span class="line">    x = ...;</span><br><span class="line">CALL_B:</span><br><span class="line">    f.down();</span><br><span class="line">    b(f);</span><br><span class="line">    f.up();</span><br><span class="line">    <span class="keyword">switch</span> (f.status)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在编译前后代码的参数中多了一个Fiber，我们可以理解他为一个小型的帧栈，其中保存了当前栈的State，pc计数信息。进入方法时先判断当前需要执行的计数，这个就比较好理解了。如果是需要执行方法b时，先调用down，保存当前的State和pc计数，之后调用一个pauseable方法。调用完成后调用up方法表示方法调用结束，回到上层。当时还会存在四种情况：</p>
+<blockquote>
+<p> 1、正常的顺利返回，没有状态需要恢复，所谓NOT_PAUSING__NO_STATE<br> 2、也是正常返回，有状态需要恢复，也就是NOT_PAUSING__HAS_STATE<br> 3、h方法暂停阻塞，当前没有保存状态，需要保存状态，这是第一次暂停的时候，称为PAUSING__NO_STATE<br> 4、h方法暂停阻塞，当前已经有状态，不需要保存状态，这是第一次暂停之后的resume再次暂停,称为PAUSING__HAS_STATE，通常不需要处理什么。</p>
+</blockquote>
+<h2 id="kilim模块"><a href="#kilim模块" class="headerlink" title="kilim模块"></a>kilim模块</h2><h3 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h3><p>Task可以认为是一个微线程，使用方式基本上和Thread相同，继承task重写execute，启动start：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Task <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (scheduler == <span class="keyword">null</span>) &#123;</span><br><span class="line">        setScheduler(Scheduler.getDefaultScheduler());</span><br><span class="line">    &#125;</span><br><span class="line">    resume();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h3><p>Scheduler是Kilim框架中核心的任务调度器，负责管理任务的工作者线程WorkerThread，以及一个基本的FIFO队列，维护着Task任务列表，Scheduler负责分派Task给指定的工作者线程WorkerThread执行，类似于ExecutorService线程池管理Runnable和Callable任务的执行。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> LinkedList&lt;WorkerThread&gt; allThreads = <span class="keyword">new</span> LinkedList&lt;WorkerThread&gt;();</span><br><span class="line"><span class="keyword">public</span> RingQueue&lt;WorkerThread&gt; waitingThreads = <span class="keyword">new</span> RingQueue&lt;WorkerThread&gt;(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> shutdown = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">public</span> RingQueue&lt;Task&gt; runnableTasks = <span class="keyword">new</span> RingQueue&lt;Task&gt;(<span class="number">100</span>);</span><br></pre></td></tr></table></figure></p>
+<p>工作者线程WorkerThread的默认初始化个数为Runtime.getRuntime().availableProcessors()，且所有空闲的线程会添加到RingQueue队列中 </p>
+<h3 id="WorkerThread"><a href="#WorkerThread" class="headerlink" title="WorkerThread"></a>WorkerThread</h3><p>WorkerThread是执行任务Task的具体线程，内部维护一个默认大小为10的环形队列RingQueue，与ThreadPoolExecutor线程池中定义的Worker类似，循环阻塞式的从任务队列中获取下一个任务执行。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">RingQueue&lt;Task&gt;      tasks      = <span class="keyword">new</span> RingQueue&lt;Task&gt;(<span class="number">10</span>);</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            Task t = getNextTask(<span class="keyword">this</span>); <span class="comment">// blocks until task available</span></span><br><span class="line">            runningTask = t;</span><br><span class="line">            t._runExecute(<span class="keyword">this</span>);</span><br><span class="line">            runningTask = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ShutdownException se) &#123;</span><br><span class="line">        <span class="comment">// nothing to do.</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (OutOfMemoryError ex) &#123;</span><br><span class="line">        System.err.println(<span class="string">"Out of memory"</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    runningTask = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="RingQueue"><a href="#RingQueue" class="headerlink" title="RingQueue"></a>RingQueue</h3><p>RingQueue本质上即一个环形队列，作为Queue用于不同的线程之间传递message的设计，和ZeroMQ利用ringbuffer来作为pipe在不同线程之间传递message的用法都是很类似的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> T[] elements;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> iprod;   <span class="comment">// producer index</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> icons;   <span class="comment">// consumer index;</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> maxSize;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Mailbox"><a href="#Mailbox" class="headerlink" title="Mailbox"></a>Mailbox</h3><p>kilim通过mailbox来解决多个task之间的消息传递，之所以叫mailbox是它的基本原则为可以有多个消息发送者，但只能有一个消息接收者。Mailbox提供的get、getb、getnb三个不同版本来接收消息，其中最常用的get会阻塞当前Task而不阻塞当前线程。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mailbox</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">PauseReason</span>, <span class="title">EventPublisher</span> </span>&#123;</span><br><span class="line">    T[] msgs;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> iprod = <span class="number">0</span>; <span class="comment">// producer index</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> icons = <span class="number">0</span>; <span class="comment">// consumer index;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> numMsgs = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxMsgs = <span class="number">300</span>;</span><br><span class="line">    EventSubscriber sink; &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> <span class="keyword">throws</span> Pausable</span>&#123;</span><br><span class="line">        Task t = Task.getCurrentTask();</span><br><span class="line">        T msg = get(t);</span><br><span class="line">        <span class="keyword">while</span> (msg == <span class="keyword">null</span>) &#123;</span><br><span class="line">            Task.pause(<span class="keyword">this</span>);</span><br><span class="line">            removeMsgAvailableListener(t);</span><br><span class="line">            msg = get(t);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="运用场"><a href="#运用场" class="headerlink" title="运用场"></a>运用场</h2><p>那么在什么场合下需要使用协程呢，根据协程的定义，应当是存在大量阻塞操作，需要大量线程的情况下，可以考虑使用协程来完成。</p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>其实协程这个概念在其他的语言中有原生的支持，如:<br>kotlin 1.30之后已经稳定 : <a href="https://www.kotlincn.net/docs/reference/coroutines-overview.html" target="_blank" rel="noopener">https://www.kotlincn.net/docs/reference/coroutines-overview.html</a>,<br>golang : <a href="https://gobyexample.com/goroutines" target="_blank" rel="noopener">https://gobyexample.com/goroutines</a>,<br>python : <a href="http://www.gevent.org/contents.html等等～" target="_blank" rel="noopener">http://www.gevent.org/contents.html等等～</a><br>在这些语言中协程就看起来至少没这么奇怪或者难以理解了，而且开发起开也相比java简单很多。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>协程的概念也不算是很新了，但是在像Java这样的语言或者特定的领域并不是很火，也并没有完全普及。不是很明白是它的学习成本高，还是说应用场景是在太小了。但是当我听到这个概念的时候确实是挺好奇，也挺好奇的。也希望之后会有更多的框架和特性来简化我们苦逼程序员的开发～～</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-12-10T07:52:37.897Z" itemprop="dateUpdated">2018-12-10 15:52:37</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/12/10/java-coroutine/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/12/10/java-coroutine/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="程呈">
+            程呈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/&title=《Java协程》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/&title=《Java协程》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/12/10/java-coroutine/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java协程》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/01/rust-wasm/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">rust学习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>程呈 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/&title=《Java协程》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/&title=《Java协程》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/12/10/java-coroutine/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java协程》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/12/10/java-coroutine/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQW7DMAwEwPz/0+m1Fzu7ohPA8ugUtEHEuRCkyNcrPu9/J/nL0X+Pvnn0mxcfDAyM2zLepye/OA99cu8hFQMD4wGMowyWpMs575x6HhsGBgbG+eckHc9hGBgYGFcx8gb4/BYMDAyMSRMb/dxS0/vTXhwDA+OGjPzV/fefvzLfwMDAuBXjXZ7zVJsn67WHvMOoMDAwtmbkCa4tzr5Rbn5ojDEwMDZltGPFFjBJuAUMAwNja0b+0H/VYOD8QW1tIIqBgbE3Y22dK1+VSEaY+Tjz1eZ4DAyMLRhtWpw/q+VN7KjaxcDA2IiRX9xenwS0lkXr9hUDA2MLRh5ou5YxLxyjlI2BgbE1Y9IV5he07etkhICBgbEfI18CS1JkOzxYGzYcTjYwMDA2ZeTlV9ugfnvZAgMD4zmMtk5sr5wMG4oxAwYGxtaMPHW2pVueCdvCtOi2MTAwtmDMF78uWD8tMYe1LQYGxqaM+ZhwbbVrrWX9EBUGBsYDGGsF4iTott0tHt0wMDA2ZRTDwiCINl1OFjIwMDCexlgj5aPKpMVt39YwMDD2ZrzLk/eMk7DaJz8MDIy9GZMpYdLErhWFeegXDDsxMDBuwkiSbNuyTtYp2m9iYGA8h5G/X60lxLb0HPXiGBgYj2dMish25aKIAQMDA2O8zNqm4LzcxMDAeA4jX8xaW61IQmyf3jAwMJ7DyAu4tZIuT83J7aNBJgYGxv0Yf8PR+gjcVrdLAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

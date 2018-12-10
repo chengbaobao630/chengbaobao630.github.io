@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Dubbo 学习 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,dubbo">
+    <meta name="description" content="参考地址https://blog.csdn.net/nethackatschool/article/details/78560574https://www.jianshu.com/p/dcfe426e9cd7  dubbo源码1.export 时机：ApplicationListener；在setApplicationContext中将自己注册为事件监听器  1234567891011// 如果">
+<meta name="keywords" content="java,dubbo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dubbo 学习">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/14/dubbo/index.html">
+<meta property="og:site_name" content="小橙子学习旅程～">
+<meta property="og:description" content="参考地址https://blog.csdn.net/nethackatschool/article/details/78560574https://www.jianshu.com/p/dcfe426e9cd7  dubbo源码1.export 时机：ApplicationListener；在setApplicationContext中将自己注册为事件监听器  1234567891011// 如果">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-14T07:35:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dubbo 学习">
+<meta name="twitter:description" content="参考地址https://blog.csdn.net/nethackatschool/article/details/78560574https://www.jianshu.com/p/dcfe426e9cd7  dubbo源码1.export 时机：ApplicationListener；在setApplicationContext中将自己注册为事件监听器  1234567891011// 如果">
+    
+        <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">程呈</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Dubbo 学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Dubbo 学习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-14T07:35:23.000Z" itemprop="datePublished" class="page-time">
+  2018-09-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dubbo源码"><span class="post-toc-number">1.</span> <span class="post-toc-text">dubbo源码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-export"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1.export</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-dubbo"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Dubbo 学习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-14 15:35:23" datetime="2018-09-14T07:35:23.000Z"  itemprop="datePublished">2018-09-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>参考地址<a href="https://blog.csdn.net/nethackatschool/article/details/78560574" target="_blank" rel="noopener">https://blog.csdn.net/nethackatschool/article/details/78560574</a><br><a href="https://www.jianshu.com/p/dcfe426e9cd7" target="_blank" rel="noopener">https://www.jianshu.com/p/dcfe426e9cd7</a></p>
+</blockquote>
+<h3 id="dubbo源码"><a href="#dubbo源码" class="headerlink" title="dubbo源码"></a>dubbo源码</h3><h4 id="1-export"><a href="#1-export" class="headerlink" title="1.export"></a>1.export</h4><ul>
+<li>时机：ApplicationListener<contextrefreshedevent>；在setApplicationContext中将自己注册为事件监听器</contextrefreshedevent></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果设置延时则开启线程延时初始化</span></span><br><span class="line"><span class="keyword">if</span> (delay != <span class="keyword">null</span> &amp;&amp; delay &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    delayExportExecutor.schedule(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            doExport();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, delay, TimeUnit.MILLISECONDS);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    doExport();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法：onApplicationEvent 中 export方法</li>
+<li>通过DubboNamespaceHandler解析spring中的dubbo xml标签；组装对应的serviceBean，通过serviceBean及其他的protocolConfig等组装成Url，最终更具protocol exportUrls</li>
+<li><p>通过url，ref对象引用及interfaceClass生成invoker。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Invoker&lt;?&gt; invoker = proxyFactory.getInvoker(ref, (Class) interfaceClass, registryURL.addParameterAndEncoded(Constants.EXPORT_KEY, url.toFullString()));</span><br><span class="line">                       DelegateProviderMetaDataInvoker wrapperInvoker = <span class="keyword">new</span> DelegateProviderMetaDataInvoker(invoker, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">                       Exporter&lt;?&gt; exporter = protocol.export(wrapperInvoker);</span><br><span class="line">                       exporters.add(exporter);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//JavassistProxyFactory</span></span><br><span class="line">                           <span class="meta">@Override</span></span><br><span class="line">                           <span class="keyword">public</span> &lt;T&gt; <span class="function">Invoker&lt;T&gt; <span class="title">getInvoker</span><span class="params">(T proxy, Class&lt;T&gt; type, URL url)</span> </span>&#123;</span><br><span class="line">                               <span class="comment">// TODO Wrapper cannot handle this scenario correctly: the classname contains '$'</span></span><br><span class="line">                               <span class="keyword">final</span> Wrapper wrapper = Wrapper.getWrapper(proxy.getClass().getName().indexOf(<span class="string">'$'</span>) &lt; <span class="number">0</span> ? proxy.getClass() : type);</span><br><span class="line">                               <span class="keyword">return</span> <span class="keyword">new</span> AbstractProxyInvoker&lt;T&gt;(proxy, type, url) &#123;</span><br><span class="line">                                   <span class="meta">@Override</span></span><br><span class="line">                                   <span class="function"><span class="keyword">protected</span> Object <span class="title">doInvoke</span><span class="params">(T proxy, String methodName,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                             Class&lt;?&gt;[] parameterTypes,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                             Object[] arguments)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                                       <span class="keyword">return</span> wrapper.invokeMethod(proxy, methodName, parameterTypes, arguments);</span><br><span class="line">                                   &#125;</span><br><span class="line">                               &#125;;</span><br><span class="line">                           &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>protocol.export(wrapperInvoker);由最终策略去暴露接口；如DubboProtocol中由Invoker组装成DubboExporter,由openServer(url)暴露若是这个server第一次暴露服务则createServer(URL url) 生成nettyServer放入map中缓存 并且重制心跳</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">Exporter&lt;T&gt; <span class="title">export</span><span class="params">(Invoker&lt;T&gt; invoker)</span> <span class="keyword">throws</span> RpcException </span>&#123;</span><br><span class="line">        URL url = invoker.getUrl();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// export service.</span></span><br><span class="line">        String key = serviceKey(url);</span><br><span class="line">        DubboExporter&lt;T&gt; exporter = <span class="keyword">new</span> DubboExporter&lt;T&gt;(invoker, key, exporterMap);</span><br><span class="line">        exporterMap.put(key, exporter);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//export an stub service for dispatching event</span></span><br><span class="line">        Boolean isStubSupportEvent = url.getParameter(Constants.STUB_EVENT_KEY, Constants.DEFAULT_STUB_EVENT);</span><br><span class="line">        Boolean isCallbackservice = url.getParameter(Constants.IS_CALLBACK_SERVICE, <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (isStubSupportEvent &amp;&amp; !isCallbackservice) &#123;</span><br><span class="line">            String stubServiceMethods = url.getParameter(Constants.STUB_EVENT_METHODS_KEY);</span><br><span class="line">            <span class="keyword">if</span> (stubServiceMethods == <span class="keyword">null</span> || stubServiceMethods.length() == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                    logger.warn(<span class="keyword">new</span> IllegalStateException(<span class="string">"consumer ["</span> + url.getParameter(Constants.INTERFACE_KEY) +</span><br><span class="line">                            <span class="string">"], has set stubproxy support event ,but no stub methods founded."</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stubServiceMethodsMap.put(url.getServiceKey(), stubServiceMethods);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        openServer(url);</span><br><span class="line">        optimizeSerialization(url);</span><br><span class="line">        <span class="keyword">return</span> exporter;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-14T07:35:23.000Z" itemprop="dateUpdated">2018-09-14 15:35:23</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/14/dubbo/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/14/dubbo/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="程呈">
+            程呈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo/">dubbo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/dubbo/&title=《Dubbo 学习》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/dubbo/&title=《Dubbo 学习》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/dubbo/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dubbo 学习》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/dubbo/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/dubbo/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/14/fdfs/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">fastdfs 搭建 学习</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/14/distributedLearning/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">分布式系统学习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>程呈 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/dubbo/&title=《Dubbo 学习》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/dubbo/&title=《Dubbo 学习》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/dubbo/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dubbo 学习》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/dubbo/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/dubbo/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aQU7DQAwF0N7/0kFiCw3fdovA87KKUEjysvgde/x4xMf1eXw9f3bNs/+q/uXFBwYGxr9lXLfH/TXJfaqk5LnfUDEwMA5gJCGbBGIerEmg5+GOgYGB0bvmVYtFDAwMjOor5uf3AX2/uMTAwMDoFbHJrXsLwV+txTEwMP4hY7Ix8O7zX9rfwMDA+MOMq3jkd8jjOI/gp8/CwMBYzagu6ea5N/9lKKxwMTAwVjDykYik6d9bVk6e/s3vBgYGxgGMajt+/lrV5toPK1wMDIyljGT0IYnXXihXNwN+2IPFwMBYx+g15e/xvU8wKZUxMDBOYCSh2Wvc96K8d08MDIzTGPmrVCO4VyTn12NgYOxjzMcj8jAtf9E8rDEwMFYzeluPvWK1OhaWb0VgYGDsZvSWgNEARKtVVw1WDAyMMxlJMVld5OVhWh3pwMDAOIeRXFptqFWDOI/maGYEAwNjESN56d4QRi+sR9GPgYGxmjEfs8iHJCb46ONiYGCsY+SP7BWxeUOtNyeCgYFxGqMXee8oVqvbCRgYGLsZ1XBsNu6LMdorlTEwMLYyruJRjr94yyH/EIUiFgMDYwWjt4CbBGU10JNwx8DAOIFRDcFXbUDOF5cYGBinMeaNsOpGwryIxcDAwMjHLPIlXa9YLexyYGBgYBRfLi9ieyGOgYFxGqPXrM/vMGnnRW+CgYGxmtF7TB6g1WGLSeMPAwNjHeMD1+OOdK2vZcIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

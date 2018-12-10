@@ -14,7 +14,7 @@
     
     
     
-    <title>小橙子学习旅程～ | 从事java快5年了，写业务代码有些疲倦了，也没好好的阅读过源码，打算开一个博客记录下学习的历程！Fighting！</title>
+    <title>小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -90,7 +90,7 @@
             <li class="waves-block waves-effect">
               <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
-                目录
+                分类
               </a>
             </li>
         
@@ -137,7 +137,7 @@
         <h1 class="title">小橙子学习旅程～</h1>
         <h5 class="subtitle">
             
-                从事java快5年了，写业务代码有些疲倦了，也没好好的阅读过源码，打算开一个博客记录下学习的历程！Fighting！
+                人生苦短，学无止境，（-，-）
             
         </h5>
     </div>
@@ -152,13 +152,15 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-reactor-leaing"
+            <article id="post-redis-transactional"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.297Z"  itemprop="datePublished">2018-09-07</time>
+        <time class="post-time" title="2018-09-14 15:45:50" datetime="2018-09-14T07:45:50.000Z"  itemprop="datePublished">2018-09-14</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/redis/">redis</a></li></ul>
+
 
 
     </div>
@@ -168,7 +170,117 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/reactor-leaing/">reactor</a>
+      <a class="post-title-link" href="/2018/09/14/redis-transactional/">redis transtional</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        redis-transtional事物的实现
+事物开始
+命令入队
+事物执行
+
+事物的开始redis&gt; MULTIok
+MULTI命令的客户端从非事物状态切换至事物状态
+命令入队客户端处于非事物状态下时，这个客户端发送的命令会立即被服务端执行
+客户端处于事物状态下时
+
+EXEC,DISCARD,WATCH,MULTI这四个命令会被立即执行
+非以上四个命令则加入事物队列，像客户端返回QUE...
+    
+
+        <a href="/2018/09/14/redis-transactional/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-redis-cluster"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-14 15:45:25" datetime="2018-09-14T07:45:25.000Z"  itemprop="datePublished">2018-09-14</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/redis/">redis</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/09/14/redis-cluster/">redis - cluster</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        redis - cluster复制 -&gt; 主从通过slaveof命令或者选项来让一个服务去复制另一个服务器的数据
+旧复制实现
+同步 当执行了slaveof操作之后，slave会去同步master的数据
+slave向master发送SYNC命令
+master收到命令后执行BGSAVE生成RDB文件，并生成一个缓冲区把从现在开始执行的写命令写进去
+master bgsave执行完毕后，ma...
+    
+
+        <a href="/2018/09/14/redis-cluster/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-reactor-leaing"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-14 15:44:40" datetime="2018-09-14T07:44:40.000Z"  itemprop="datePublished">2018-09-14</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/reactor/">reactor</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/09/14/reactor-leaing/">reactor</a>
     </h3>
   
 
@@ -185,9 +297,15 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
 这种方式在并发的情况下非常的慢*** — __之后出现了一个请求...
     
 
-        <a href="/2018/09/07/reactor-leaing/" class="post-more waves-effect waves-button">
+        <a href="/2018/09/14/reactor-leaing/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactor/">reactor</a></li></ul>
+
     </div>
     
 </article>
@@ -195,13 +313,15 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-binaryTree"
+            <article id="post-mysql-learning"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.296Z"  itemprop="datePublished">2018-09-07</time>
+        <time class="post-time" title="2018-09-14 15:43:54" datetime="2018-09-14T07:43:54.000Z"  itemprop="datePublished">2018-09-14</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/mysql/">mysql</a></li></ul>
+
 
 
     </div>
@@ -211,7 +331,7 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/binaryTree/">二查找叉树</a>
+      <a class="post-title-link" href="/2018/09/14/mysql-learning/">mysql 搭建 学习</a>
     </h3>
   
 
@@ -221,12 +341,21 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110...
+        
+参考地址：https://blog.csdn.net/danykk/article/details/80137223https://blog.csdn.net/zyhlwzy/article/details/80569422#commentBoxhttps://blog.csdn.net/mergerly/article/details/46654597
+
+mysql单机搭建安装cento...
     
 
-        <a href="/2018/09/07/binaryTree/" class="post-more waves-effect waves-button">
+        <a href="/2018/09/14/mysql-learning/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
     </div>
     
 </article>
@@ -234,13 +363,15 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-algorithm"
+            <article id="post-mac"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.295Z"  itemprop="datePublished">2018-09-07</time>
+        <time class="post-time" title="2018-09-14 15:43:17" datetime="2018-09-14T07:43:17.000Z"  itemprop="datePublished">2018-09-14</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/mac/">mac</a></li></ul>
+
 
 
     </div>
@@ -250,7 +381,7 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/algorithm/">算法初探</a>
+      <a class="post-title-link" href="/2018/09/14/mac/">mac实用开发工具</a>
     </h3>
   
 
@@ -260,12 +391,31 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        面试算法题编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中每个元素表示链条上的一环。现在我们想把这条链条断成3小部分。我们需 要做的就是断开不相连的两个环，更确切的说，我们需要断开环P、Q (0&lt;P&lt;Q&lt;N-1, Q-P &gt; 1)，得到三个小链条[0,P-1],[P+1,Q-1],[Q+1,N-1]。 上述操作的成本是A[P]+A[Q]...
+        mac实用开发工具iterm
+mac下终端管理
+美化https://github.com/fitztrev/trevdev
+shuttle
+快速执行脚本
+brew
+mac包管理工具
+autojump
+
+autojump + 目录名 跳转 =&gt; j + 目录名
+autojump -a  [目录] 添加一个目录
+autojump -i [权重]
+autojump -d [权重]
+autoj...
     
 
-        <a href="/2018/09/07/algorithm/" class="post-more waves-effect waves-button">
+        <a href="/2018/09/14/mac/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li></ul>
+
     </div>
     
 </article>
@@ -273,13 +423,15 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-servlet"
+            <article id="post-kotlin(0)"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.294Z"  itemprop="datePublished">2018-09-07</time>
+        <time class="post-time" title="2018-09-14 15:42:40" datetime="2018-09-14T07:42:40.000Z"  itemprop="datePublished">2018-09-14</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/kotlin/">kotlin</a></li></ul>
+
 
 
     </div>
@@ -289,7 +441,7 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/servlet/">servlet 理解</a>
+      <a class="post-title-link" href="/2018/09/14/kotlin(0)/">KOTLIN - 基础-1</a>
     </h3>
   
 
@@ -299,21 +451,124 @@ reactor模型学习reactor的产生原因-&gt;解决什么问题网络编程最�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        servlet 理解
-java项目现在基本都是依赖spring框架，java web项目中如果不了解servlet其实不容易理解项目及spring是如何启动的如：
-
-无web.xml启动
-spring boot
-
-参考文档：http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf
-
-
-1、ServletContextserv...
+        java 转换 kotlin 学习1.方法定义12345678910111213141516171819202122232425// java 无参无返回public void test()&#123;&#125;//KOTLIN （可省略Unit）fun test():Unit&#123;&#125;// javapublic Integer test(Integer param)&#12...
     
 
-        <a href="/2018/09/07/servlet/" class="post-more waves-effect waves-button">
+        <a href="/2018/09/14/kotlin(0)/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kotlin/">kotlin</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-interview"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-14 15:40:19" datetime="2018-09-14T07:40:19.000Z"  itemprop="datePublished">2018-09-14</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/09/14/interview/">面试题</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        面试题
+参考地址：https://blog.csdn.net/sinat_35512245/article/details/60325685
+
+1.ES 倒排索引
+将文章进行分词，去掉停顿次，常用词等，生成关键词
+将关键词与文章做关联
+将关键词在文章中出现的次数，位置记录，以便高亮排序等
+
+2.spring Mvc 的流程
+用户请求url，由DispatcherServlet接受
+Dispa...
+    
+
+        <a href="/2018/09/14/interview/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cas/">cas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/锁/">锁</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-hashMap"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-14 15:39:49" datetime="2018-09-14T07:39:49.000Z"  itemprop="datePublished">2018-09-14</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/09/14/hashMap/">HashMap</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        最常用的hashMap底层的一些原理：1、对key的hashCode()做hash，然后再计算index;
+1234static final int hash(Object key) &#123;    int h;    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);&#125;
+理解下来这一段主...
+    
+
+        <a href="/2018/09/14/hashMap/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/map/">map</a></li></ul>
+
     </div>
     
 </article>
@@ -325,9 +580,11 @@ spring boot
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.294Z"  itemprop="datePublished">2018-09-07</time>
+        <time class="post-time" title="2018-09-14 15:39:16" datetime="2018-09-14T07:39:16.000Z"  itemprop="datePublished">2018-09-14</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
 
 
     </div>
@@ -337,7 +594,7 @@ spring boot
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/fdfs/">fastdfs 搭建 学习</a>
+      <a class="post-title-link" href="/2018/09/14/fdfs/">fastdfs 搭建 学习</a>
     </h3>
   
 
@@ -353,9 +610,15 @@ spring boot
 fastdfs 搭建 学习准备工作一、安装gcc    yum install -y gcc二、cp libfastcommon    ./make.sh    ./...
     
 
-        <a href="/2018/09/07/fdfs/" class="post-more waves-effect waves-button">
+        <a href="/2018/09/14/fdfs/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
     </div>
     
 </article>
@@ -363,13 +626,15 @@ fastdfs 搭建 学习准备工作一、安装gcc    yum install -y gcc二、cp l
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-spring-boot-deploy(1)"
+            <article id="post-dubbo"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.294Z"  itemprop="datePublished">2018-09-07</time>
+        <time class="post-time" title="2018-09-14 15:35:23" datetime="2018-09-14T07:35:23.000Z"  itemprop="datePublished">2018-09-14</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
 
 
     </div>
@@ -379,174 +644,7 @@ fastdfs 搭建 学习准备工作一、安装gcc    yum install -y gcc二、cp l
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/spring-boot-deploy(1)/">spring-boot tomcat部署（war包）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Spring boot 在tomcat中是如何启动的
-基于servlet3.0+，tomcat启动时会扫描带有注解@Webservlet，@Weblistener…等的类，以及在项目或jar包中的META_INF下的javax.servlet.ServletContainerInitializer文件中的实现了ServletContainerInitializer接口的类，如果此时类上带有注...
-    
-
-        <a href="/2018/09/07/spring-boot-deploy(1)/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-boot-deploy(2)"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.293Z"  itemprop="datePublished">2018-09-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/spring-boot-deploy(2)/">spring-boot tomcat部署（jar包）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        spring-boot tomcat部署（jar包）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889pu...
-    
-
-        <a href="/2018/09/07/spring-boot-deploy(2)/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-ruby1"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.293Z"  itemprop="datePublished">2018-09-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/ruby1/">ruby学习</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        ruby学习linux安装sudo apt-get install ruby
-rubocop安装先安装编译环境sudo apt-get install build-essentialsudo gem install rubocop
-
-    
-
-        <a href="/2018/09/07/ruby1/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-java-cas"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.292Z"  itemprop="datePublished">2018-09-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/java-cas/">CAS</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        java 乐观锁之 CAS
-参考资：https://blog.csdn.net/ls5718/article/details/52563959https://blog.csdn.net/zqz_zqz/article/details/70233767
-
-乐观锁vs悲观锁
-乐观锁 假设每一步操作都能成功，先执行
-被关锁 假设每一步操作都会造成问题，需要排队
-
-其他的锁概念
-java 可重入锁 ...
-    
-
-        <a href="/2018/09/07/java-cas/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-transferInterviewOfGc"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-09-07 00:03:34" datetime="2018-09-06T16:03:34.289Z"  itemprop="datePublished">2018-09-07</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/07/transferInterviewOfGc/">一个面试官对JVM面试问题的分析</a>
+      <a class="post-title-link" href="/2018/09/14/dubbo/">Dubbo 学习</a>
     </h3>
   
 
@@ -557,15 +655,23 @@ java 可重入锁 ...
 
     
         
-转自：https://blog.csdn.net/GarfieldEr007/article/details/55822985
+参考地址https://blog.csdn.net/nethackatschool/article/details/78560574https://www.jianshu.com/p/dcfe426e9cd7
 
-这个帖子的背景是今晚看到je上这张贴：http://www.iteye.com/topic/715256，心血来潮写下的文字，如果能抛砖引玉，能有其他面试官分析一下自己面试时问的问题，那或许是件很有意义的事情。
-在公司当技术面试官几年间，从应届生到工作十几年的应...
+dubbo源码1.export
+时机：ApplicationListener；在setApplicationContext中将自己注册为事件监听器
+
+1234567891011//...
     
 
-        <a href="/2018/09/07/transferInterviewOfGc/" class="post-more waves-effect waves-button">
+        <a href="/2018/09/14/dubbo/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo/">dubbo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
     </div>
     
 </article>
@@ -577,7 +683,7 @@ java 可重入锁 ...
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
     </div>
 </nav>
 

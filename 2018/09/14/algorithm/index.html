@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>算法初探 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,算法">
+    <meta name="description" content="面试算法题编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中每个元素表示链条上的一环。现在我们想把这条链条断成3小部分。我们需 要做的就是断开不相连的两个环，更确切的说，我们需要断开环P、Q (0&amp;lt;P&amp;lt;Q&amp;lt;N-1, Q-P &amp;gt; 1)，得到三个小链条[0,P-1],[P+1,Q-1],[Q+1,N-1]。 上述操作的成本是A[P]+A[Q]。例如">
+<meta name="keywords" content="java,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法初探">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/14/algorithm/index.html">
+<meta property="og:site_name" content="小橙子学习旅程～">
+<meta property="og:description" content="面试算法题编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中每个元素表示链条上的一环。现在我们想把这条链条断成3小部分。我们需 要做的就是断开不相连的两个环，更确切的说，我们需要断开环P、Q (0&amp;lt;P&amp;lt;Q&amp;lt;N-1, Q-P &amp;gt; 1)，得到三个小链条[0,P-1],[P+1,Q-1],[Q+1,N-1]。 上述操作的成本是A[P]+A[Q]。例如">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-14T07:33:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法初探">
+<meta name="twitter:description" content="面试算法题编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中每个元素表示链条上的一环。现在我们想把这条链条断成3小部分。我们需 要做的就是断开不相连的两个环，更确切的说，我们需要断开环P、Q (0&amp;lt;P&amp;lt;Q&amp;lt;N-1, Q-P &amp;gt; 1)，得到三个小链条[0,P-1],[P+1,Q-1],[Q+1,N-1]。 上述操作的成本是A[P]+A[Q]。例如">
+    
+        <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">程呈</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">算法初探</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">算法初探</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-14T07:33:02.000Z" itemprop="datePublished" class="page-time">
+  2018-09-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面试算法题"><span class="post-toc-number">1.</span> <span class="post-toc-text">面试算法题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编程-断开链条-给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编程-M个最大的数-编程实现从N个无序数中选取M个最大的数-0-lt-M-lt-N-–-gt-topK算法"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">编程:M个最大的数 编程实现从N个无序数中选取M个最大的数(0 &lt; M &lt; N ) –&gt; topK算法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编程-最大方形-给定一个元素是布尔型大小为N-M的矩阵A。大小为L的方形可以放置在A"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">编程:最大方形 给定一个元素是布尔型大小为N*M的矩阵A。大小为L的方形可以放置在A</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编程-顺时针环绕列印矩阵元素-给定一个整数元素组成的矩阵，写一个函数，返回一个数组，数组中的元-素是按照顺时针遍历矩阵中的元素而组成。例如如下的3x4矩阵"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">编程:顺时针环绕列印矩阵元素 给定一个整数元素组成的矩阵，写一个函数，返回一个数组，数组中的元 素是按照顺时针遍历矩阵中的元素而组成。例如如下的3x4矩阵:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#问答题-只要给出答案和解释就行，是否通过编程得到答案自己决定-假设你英姿飒爽的站在120层摩天大楼的天台，手握两个iphone-就是这-么豪-，并且可轻易到达任一楼层的阳台。请用最少的尝试次数，确定能-够让iphone自由下落而不会摔坏的最高层数。比如20层摔不坏，21层就摔-坏了。在尝试中你可以摔坏这两个iphone，只要能得到答案。请说明最坏-情况需要多少次尝试以及你的思路。"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">问答题(只要给出答案和解释就行，是否通过编程得到答案自己决定) 假设你英姿飒爽的站在120层摩天大楼的天台，手握两个iphone(就是这 么豪!)，并且可轻易到达任一楼层的阳台。请用最少的尝试次数，确定能 够让iphone自由下落而不会摔坏的最高层数。比如20层摔不坏，21层就摔 坏了。在尝试中你可以摔坏这两个iphone，只要能得到答案。请说明最坏 情况需要多少次尝试以及你的思路。</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-algorithm"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">算法初探</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-14 15:33:02" datetime="2018-09-14T07:33:02.000Z"  itemprop="datePublished">2018-09-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="面试算法题"><a href="#面试算法题" class="headerlink" title="面试算法题"></a>面试算法题</h2><h4 id="编程-断开链条-给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中"><a href="#编程-断开链条-给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中" class="headerlink" title="编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中"></a>编程:断开链条 给定一个包含N个整数的数组A，假设这个数组表示的是一条链条，其中</h4><p>每个元素表示链条上的一环。现在我们想把这条链条断成3小部分。我们需 要做的就是断开不相连的两个环，更确切的说，我们需要断开环P、Q (0&lt;P&lt;Q&lt;N-1, Q-P &gt; 1)，得到三个小链条[0,P-1],[P+1,Q-1],[Q+1,N-1]。 上述操作的成本是A[P]+A[Q]。<br>例如:数组A为 A[0] = 5<br>A[1] = 2<br>A[2] = 4<br>A[3] = 6<br>A[4] = 3<br>A[5] = 7<br>我们可以选择如下方式断开链条 - (1，3):成本是 2+6 = 8 - (1，4):成本是 2+3 = 5 - (2，4):成本是 4+3 = 7<br>写一个函数<br>int breakchain(int A[], int N);<br>对任一个给定的链条，返回断开链条的最低成本，比如上面的例子中， 需要返回最低成本5<br>假设:</p>
+<ul>
+<li>N是整数，范围[5,100000]<br>A的元素是范围在[1,1000000000]的整数</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cc.home.pratice.interview</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chengcheng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">object</span> Interview1 &#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> a: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">     <span class="keyword">var</span> b: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">fun</span> <span class="title">breakchain</span><span class="params">(A: <span class="type">IntArray</span>, N: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        a = A[<span class="number">1</span>]</span><br><span class="line">        b = A[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">for</span> (x <span class="keyword">in</span> <span class="number">3</span> until N<span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">val</span> i = A[x]</span><br><span class="line">            <span class="keyword">if</span> (i &lt;= a) &#123;</span><br><span class="line">                b = a</span><br><span class="line">                a = i</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i &lt;= b) &#123;</span><br><span class="line">                b = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JvmStatic</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> A = intArrayOf(<span class="number">5</span>, <span class="number">1</span>,<span class="number">6</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">val</span> breakchain = breakchain(A, A.size)</span><br><span class="line">        println(breakchain)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编程-M个最大的数-编程实现从N个无序数中选取M个最大的数-0-lt-M-lt-N-–-gt-topK算法"><a href="#编程-M个最大的数-编程实现从N个无序数中选取M个最大的数-0-lt-M-lt-N-–-gt-topK算法" class="headerlink" title="编程:M个最大的数 编程实现从N个无序数中选取M个最大的数(0 &lt; M &lt; N ) –&gt; topK算法"></a>编程:M个最大的数 编程实现从N个无序数中选取M个最大的数(0 &lt; M &lt; N ) –&gt; topK算法</h4><p>–补充：bitmap算法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cc.home.pratice.interview;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chengcheng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interview2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> Integer <span class="title">fastSort</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> start ,<span class="keyword">int</span> end,Integer aim)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(start&gt;=end) <span class="keyword">return</span> a[start];</span><br><span class="line">        aim = aim -<span class="number">1</span>;</span><br><span class="line">        Objects.requireNonNull(a,<span class="string">"required not null object"</span>);</span><br><span class="line">        <span class="keyword">int</span> base= a[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> j = start;</span><br><span class="line">        <span class="keyword">int</span> k = end;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (j!=k)&#123;</span><br><span class="line">           <span class="keyword">while</span> (a[k]&lt;base &amp;&amp; k &gt; j)&#123;</span><br><span class="line">               k--;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">while</span> (a[j]&gt;base &amp;&amp; k &gt; j)&#123;</span><br><span class="line">               j++;</span><br><span class="line">           &#125;</span><br><span class="line">           tmp = a[j];</span><br><span class="line">           a[j]=a[k];</span><br><span class="line">           a[k]=tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        a[j]=tmp;</span><br><span class="line">        <span class="keyword">if</span> (j == aim)&#123;</span><br><span class="line">            <span class="keyword">return</span> a[j];</span><br><span class="line">        &#125;<span class="keyword">if</span> (aim &gt; j)&#123;</span><br><span class="line">            <span class="keyword">return</span> fastSort(Arrays.copyOfRange(a,j + <span class="number">1</span>,end+<span class="number">1</span>),<span class="number">0</span>,end - j - <span class="number">1</span>,aim -j);</span><br><span class="line">        &#125;<span class="keyword">if</span> (aim &lt; j)&#123;</span><br><span class="line">            <span class="keyword">return</span> fastSort(Arrays.copyOfRange(a,start,j),start,j-<span class="number">1</span>,aim + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] a =  &#123;<span class="number">11</span>,<span class="number">9</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">6</span>,<span class="number">17</span>,<span class="number">2</span>,<span class="number">20</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        System.out.println(fastSort(a,<span class="number">0</span>,a.length-<span class="number">1</span>,<span class="number">3</span>));</span><br><span class="line">        System.out.println(Arrays.toString(a));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="编程-最大方形-给定一个元素是布尔型大小为N-M的矩阵A。大小为L的方形可以放置在A"><a href="#编程-最大方形-给定一个元素是布尔型大小为N-M的矩阵A。大小为L的方形可以放置在A" class="headerlink" title="编程:最大方形 给定一个元素是布尔型大小为N*M的矩阵A。大小为L的方形可以放置在A"></a>编程:最大方形 给定一个元素是布尔型大小为N*M的矩阵A。大小为L的方形可以放置在A</h4><p>中的(X,Y)处，如果满足:<br>0 &lt; L &lt;= min(N,M)<br>0 &lt;= X &lt;= N-L<br>0 &lt;= Y &lt;= M-L<br>A[X+i][Y+j] = true, 0 &lt;= i &lt; L, 0 &lt;= j &lt; L<br>如果L能被放置在(X,Y)以及(X+1,Y)或者(X,Y+1)，我们说它可以被 从(X,Y)移动到(X+1,Y)或者(X,Y+1)。<br>我们想找出满足以下条件的最大的L: L可以被放置在(0,0) 它可以被经过一系列的移动，从(0,0)到达(N-L,M-L)<br>换句话说，我们想找到最大的方形，可以从左上移动到右下，移动方式 是向下或者向右移动。一个极端情况是如果矩阵A中的元素全部是true，那 么L = min(N,M)。<br>写一个函数:int move_square(int **A, int N, int M); 返回值为L。<br>比如:<br>A[0][0]=true A[0][1]=true A[0][2]=true A[0][3]=false A[1][0]=true A[1][1]=true A[1][2]=true A[1][3]=false A[2][0]=true A[2][1]=true A[2][2]=true A[2][3]=false A[3][0]=true A[3][1]=true A[3][2]=true A[3][3]=true A[4][0]=false A[4][1]=true A[4][2]=true A[4][3]=true A[5][0]=true A[5][1]=false A[5][2]=true A[5][3]=true 返回 2<br>A[0][0]=true A[0][1]=true A[0][2]=false A[0][3]=false A[1][0]=true A[1][1]=false A[1][2]=false A[1][3]=false A[2][0]=false A[2][1]=true A[2][2]=false A[2][3]=true 返回 0<br>A[0][0]=true 返回 1<br>假设: N和M是范围为[1,200]的整数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cc.home.pratice.interview;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chengcheng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interview3</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">move_square</span><span class="params">(<span class="keyword">boolean</span>[][] A , <span class="keyword">int</span> N, <span class="keyword">int</span> M)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> resultL = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!A[<span class="number">0</span>][<span class="number">0</span>]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temMaxWidth = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temMaxHeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">boolean</span>[] b : A)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!b[<span class="number">0</span>]) <span class="keyword">break</span>;</span><br><span class="line">            temMaxHeight++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">boolean</span> b :A[<span class="number">0</span>])&#123;</span><br><span class="line">            <span class="keyword">if</span> (!b) <span class="keyword">break</span>;</span><br><span class="line">            temMaxWidth++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 找出最大边</span></span><br><span class="line">        resultL = Math.min(temMaxHeight,temMaxWidth ) -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = resultL ; j &gt;<span class="number">0</span>;j--)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = resultL ; i &gt; <span class="number">0</span>;i--)&#123;</span><br><span class="line">                <span class="keyword">if</span> (!A[j][i])&#123;</span><br><span class="line">                    resultL = Math.min(i,j) -<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 移动 递归查找是否可以通过</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>  i = resultL +<span class="number">1</span> ;  i &gt; <span class="number">0</span> ; i--)&#123;</span><br><span class="line">            <span class="keyword">int</span> aimWidth = N-i;</span><br><span class="line">            <span class="keyword">int</span> aimHeight = M-i;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (swift(i,<span class="number">0</span>,<span class="number">0</span>,A,aimWidth,aimHeight))&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">swiftRight</span><span class="params">(Integer width, Integer startW, Integer startH, <span class="keyword">boolean</span>[][] A, Integer endW, Integer endH)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span> ;a &lt; width ;a++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!A[startW+a][startH+width-<span class="number">1</span>]) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> swift(width, startW, startH, A, endW, endH);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">swiftDown</span><span class="params">(Integer width, Integer startW, Integer startH, <span class="keyword">boolean</span>[][] A, Integer endW, Integer endH)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span> ;a &lt; width ;a++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!A[startW+width -<span class="number">1</span>][startH+a]) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> swift(width, startW, startH, A, endW, endH);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">swift</span><span class="params">(Integer width, Integer startW, Integer startH, <span class="keyword">boolean</span>[][] A, Integer endW, Integer endH)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (startH.equals(endH) &amp;&amp; startW.equals(endW)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (startW  &lt; endW &amp;&amp; startH  &lt; endH)&#123;</span><br><span class="line">                <span class="keyword">return</span> swiftRight(width, startW , startH + <span class="number">1</span>,A ,endW,endH)</span><br><span class="line">                        || swiftDown(width, startW + <span class="number">1</span>, startH ,A ,endW,endH);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (startH  &lt; endH)&#123;</span><br><span class="line">                <span class="keyword">return</span> swiftRight(width, startW , startH + <span class="number">1</span>,A ,endW,endH);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (startW  &lt; endW )&#123;</span><br><span class="line">                <span class="keyword">return</span> swiftDown(width, startW + <span class="number">1</span>, startH ,A ,endW,endH);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="keyword">false</span>;&#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        boolean[][] a = &#123;&#123;true,true,true,false&#125;,&#123;true,true,true,false&#125;,&#123;true,true,true,false&#125;</span></span><br><span class="line"><span class="comment">//        ,&#123;true,true,true,true&#125;,&#123;false,true,true,true&#125;,&#123;true,false,true,true&#125;&#125;;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span>[][] a = &#123;&#123;<span class="keyword">true</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        boolean[][] a = &#123;&#123;true,true,false,false&#125;,&#123;true,false,false,false&#125;,&#123;false,true,false,true&#125;&#125;;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        boolean[][] a = &#123;&#123;true,true,false,false&#125;,&#123;false,true,true,true&#125;</span></span><br><span class="line"><span class="comment">//        ,&#123;false,true,true,false&#125;,&#123;false,false,true,true&#125;,&#123;false,false,false,true&#125;&#125;;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> i = move_square(a, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="编程-顺时针环绕列印矩阵元素-给定一个整数元素组成的矩阵，写一个函数，返回一个数组，数组中的元-素是按照顺时针遍历矩阵中的元素而组成。例如如下的3x4矩阵"><a href="#编程-顺时针环绕列印矩阵元素-给定一个整数元素组成的矩阵，写一个函数，返回一个数组，数组中的元-素是按照顺时针遍历矩阵中的元素而组成。例如如下的3x4矩阵" class="headerlink" title="编程:顺时针环绕列印矩阵元素 给定一个整数元素组成的矩阵，写一个函数，返回一个数组，数组中的元 素是按照顺时针遍历矩阵中的元素而组成。例如如下的3x4矩阵:"></a>编程:顺时针环绕列印矩阵元素 给定一个整数元素组成的矩阵，写一个函数，返回一个数组，数组中的元 素是按照顺时针遍历矩阵中的元素而组成。例如如下的3x4矩阵:</h4><p>2, 3, 4, 8<br>5, 7, 9, 12<br>1, 0, 6, 10<br>得到的数组的元素按照顺序是“2, 3, 4, 8, 12, 10, 6, 0, 1, 5, 7, 9”.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cc.home.pratice.interview;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chengcheng</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interview4</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] cyclic(<span class="keyword">int</span>[][] ori) &#123;</span><br><span class="line">        <span class="keyword">int</span> j = ori[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> k = ori.length;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[j * k];</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> s = <span class="number">0</span>; s * <span class="number">2</span> &lt; j &amp;&amp; s * <span class="number">2</span> &lt; k; s++) &#123;</span><br><span class="line">            <span class="keyword">int</span> width = j - <span class="number">1</span> - s;</span><br><span class="line">            <span class="keyword">int</span> height = k - <span class="number">1</span> - s;</span><br><span class="line">            <span class="comment">// -&gt;</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> a = s; a &lt; width; a++) &#123;</span><br><span class="line">                result[index++] = ori[s][a];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// |</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> a = s; a &lt; height; a++) &#123;</span><br><span class="line">                result[index++] = ori[a][width];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// &lt;-</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> a = width; a &gt; s; a--) &#123;</span><br><span class="line">                result[index++] = ori[height][a];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// ^|</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> a = height; a &gt; s; a--) &#123;</span><br><span class="line">                result[index++] = ori[a][s];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        int[][] a = &#123;&#123;1,2,3&#125;,&#123;4,5,6&#125;,&#123;7,8,9&#125;,&#123;10,11,12&#125;&#125;;</span></span><br><span class="line">        <span class="keyword">int</span>[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;,&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;,&#123;<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>&#125;&#125;;</span><br><span class="line">        System.out.println(Arrays.toString(cyclic(a)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="问答题-只要给出答案和解释就行，是否通过编程得到答案自己决定-假设你英姿飒爽的站在120层摩天大楼的天台，手握两个iphone-就是这-么豪-，并且可轻易到达任一楼层的阳台。请用最少的尝试次数，确定能-够让iphone自由下落而不会摔坏的最高层数。比如20层摔不坏，21层就摔-坏了。在尝试中你可以摔坏这两个iphone，只要能得到答案。请说明最坏-情况需要多少次尝试以及你的思路。"><a href="#问答题-只要给出答案和解释就行，是否通过编程得到答案自己决定-假设你英姿飒爽的站在120层摩天大楼的天台，手握两个iphone-就是这-么豪-，并且可轻易到达任一楼层的阳台。请用最少的尝试次数，确定能-够让iphone自由下落而不会摔坏的最高层数。比如20层摔不坏，21层就摔-坏了。在尝试中你可以摔坏这两个iphone，只要能得到答案。请说明最坏-情况需要多少次尝试以及你的思路。" class="headerlink" title="问答题(只要给出答案和解释就行，是否通过编程得到答案自己决定) 假设你英姿飒爽的站在120层摩天大楼的天台，手握两个iphone(就是这 么豪!)，并且可轻易到达任一楼层的阳台。请用最少的尝试次数，确定能 够让iphone自由下落而不会摔坏的最高层数。比如20层摔不坏，21层就摔 坏了。在尝试中你可以摔坏这两个iphone，只要能得到答案。请说明最坏 情况需要多少次尝试以及你的思路。"></a>问答题(只要给出答案和解释就行，是否通过编程得到答案自己决定) 假设你英姿飒爽的站在120层摩天大楼的天台，手握两个iphone(就是这 么豪!)，并且可轻易到达任一楼层的阳台。请用最少的尝试次数，确定能 够让iphone自由下落而不会摔坏的最高层数。比如20层摔不坏，21层就摔 坏了。在尝试中你可以摔坏这两个iphone，只要能得到答案。请说明最坏 情况需要多少次尝试以及你的思路。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 21次</span></span><br><span class="line"><span class="comment">* 在于求出x*y  = 120 且 x+y 是最小的数</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* */</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-14T07:33:02.000Z" itemprop="dateUpdated">2018-09-14 15:33:02</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/14/algorithm/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/14/algorithm/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="程呈">
+            程呈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/algorithm/&title=《算法初探》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/algorithm/&title=《算法初探》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/algorithm/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《算法初探》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/algorithm/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/algorithm/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/14/binaryTree/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">二查找叉树</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/14/java-cas/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CAS</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>程呈 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/algorithm/&title=《算法初探》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/algorithm/&title=《算法初探》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/algorithm/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《算法初探》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/algorithm/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/algorithm/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQW7DMAxEUd//0u62RWrhzyhNIelrFSSOrecFQZG8Lrzub+vp19crX78nn5+e8oYlQ4aMZRn3cPFr+J35NcFzZciQcQCDhNHx49OXQsI62ZsMGTJkjBnkPhxPnitDhgwZhNEdaMewfwi4MmTIWJDBk7m0HMYTxw+dxWXIkLEgo9vKZz7/SX9DhgwZSzHucHXFMp783dWSIUPG3oyuTJYWxcbNS3RAJcMfMmTIOIDBhyG6oYq0/ZnCZMiQsStjvOkg2OGGAdkoL/n9yHBlyJBxGCMtynNA1zYIaoEyZMjYmsFHIuaLa+8KzTJkyDiH0Q1m8TJZ+oLSkC1Dhoy9GfzQyIMvH/OaSRx/2YkMGTI2ZXQDWzxEds1Ofh8ZMmScwODp4EyQ7cY14uKdDBkytmakoxhdg7MMoyFShgwZ+zF4M7IryfF/8YbB1MyIDBkyFmTMHyNnJh/S9PTqbiRDhozFGfwYmQ5vpQkfT0DjmREZMmQszkgLW2ks7wZb01KdDBkyzmSkB85utIvfE4FlyJBxGKM7lI4fz1PJcicyZMg4htENs5J/da2FACNDhoxNGXe4SKI28wr4fR5HV2XIkLEdoyuc8SGJbivzQ64yZMjYj8GDbJoOduW59EoZMmScw+imrdIxizR9DNqiMmTIkBG2B/j3UwMWMmTIkBEGRB5YeWkvCPcyZMg4gMGbAfzgmhbdyH1kyJBxJiMdceiGJ9IXMZ+kypAhYwvGF2fEvCoIusDUAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

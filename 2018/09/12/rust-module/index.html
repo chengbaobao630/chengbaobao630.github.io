@@ -14,25 +14,25 @@
     
     
     
-    <title>rust模块 | 小橙子学习旅程～ | 从事java快5年了，写业务代码有些疲倦了，也没好好的阅读过源码，打算开一个博客记录下学习的历程！Fighting！</title>
+    <title>rust模块 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="rust">
-    <meta name="description" content="记录的比较杂，之后会慢慢的整理起来">
+    <meta name="description" content="rust模块12345678910111213141516171819network.rsmod networt&amp;#123;    fn connect() &amp;#123;    &amp;#125;    mod server&amp;#123;        fn connext() &amp;#123;        &amp;#125;    &amp;#125;&amp;#125;mod client&amp;#123;    fn conne">
 <meta name="keywords" content="rust">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rust模块">
 <meta property="og:url" content="https://chengbaobao630@github.io/2018/09/12/rust-module/index.html">
 <meta property="og:site_name" content="小橙子学习旅程～">
-<meta property="og:description" content="记录的比较杂，之后会慢慢的整理起来">
+<meta property="og:description" content="rust模块12345678910111213141516171819network.rsmod networt&amp;#123;    fn connect() &amp;#123;    &amp;#125;    mod server&amp;#123;        fn connext() &amp;#123;        &amp;#125;    &amp;#125;&amp;#125;mod client&amp;#123;    fn conne">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-13T14:52:33.099Z">
+<meta property="og:updated_time" content="2018-10-19T07:56:15.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rust模块">
-<meta name="twitter:description" content="记录的比较杂，之后会慢慢的整理起来">
+<meta name="twitter:description" content="rust模块12345678910111213141516171819network.rsmod networt&amp;#123;    fn connect() &amp;#123;    &amp;#125;    mod server&amp;#123;        fn connext() &amp;#123;        &amp;#125;    &amp;#125;&amp;#125;mod client&amp;#123;    fn conne">
     
         <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
     
@@ -91,7 +91,7 @@
             <li class="waves-block waves-effect">
               <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
-                目录
+                分类
               </a>
             </li>
         
@@ -157,6 +157,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rust模块"><span class="post-toc-number">1.</span> <span class="post-toc-text">rust模块</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-rust-module"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -179,7 +186,11 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h1 id="rust模块"><a href="#rust模块" class="headerlink" title="rust模块"></a>rust模块</h1><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">network.rs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">mod</span> networt&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">connect</span></span>() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">mod</span> server&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fn</span> <span class="title">connext</span></span>() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">mod</span> client&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">connect</span></span>() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一种最简单的多模块的方式，但是随着代码量越来越多这种结构会越来越乱。因此需要拆分成多个文件。</p>
+<p>多文件的形式中由于多层模块嵌套的问题可能会出现重名的模块但是在不同的层级，所以当一个模块有子模块时，改模块需要新开一个目录，并且命名为mod.rs放在该目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- network</span><br><span class="line">    - mod.rs</span><br><span class="line">    - server.rs</span><br><span class="line">- client.rs</span><br></pre></td></tr></table></figure>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -187,7 +198,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-13T14:52:33.099Z" itemprop="dateUpdated">2018-09-13 22:52:33</time>
+    最后更新时间：<time datetime="2018-10-19T07:56:15.086Z" itemprop="dateUpdated">2018-10-19 15:56:15</time>
 </span><br>
 
 
@@ -264,14 +275,21 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/14/java-cas/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CAS</h4>
+      </a>
+    </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/09/11/interview/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/08/rust-struct/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">面试题</h4>
+        <h4 class="title">rust结构体</h4>
       </a>
     </div>
   

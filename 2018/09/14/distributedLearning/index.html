@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>分布式系统学习 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java">
+    <meta name="description" content="https://www.cnblogs.com/xybaby/p/7787034.htmlhttps://www.cnblogs.com/szlbm/p/5588543.html  分布式系统学习cap概念CAP原则又称CAP定理，指的是在一个分布式系统中，Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性），三者不可得兼。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式系统学习">
+<meta property="og:url" content="https://chengbaobao630@github.io/2018/09/14/distributedLearning/index.html">
+<meta property="og:site_name" content="小橙子学习旅程～">
+<meta property="og:description" content="https://www.cnblogs.com/xybaby/p/7787034.htmlhttps://www.cnblogs.com/szlbm/p/5588543.html  分布式系统学习cap概念CAP原则又称CAP定理，指的是在一个分布式系统中，Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性），三者不可得兼。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-14T07:34:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式系统学习">
+<meta name="twitter:description" content="https://www.cnblogs.com/xybaby/p/7787034.htmlhttps://www.cnblogs.com/szlbm/p/5588543.html  分布式系统学习cap概念CAP原则又称CAP定理，指的是在一个分布式系统中，Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性），三者不可得兼。">
+    
+        <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">程呈</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">分布式系统学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">分布式系统学习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-14T07:34:52.000Z" itemprop="datePublished" class="page-time">
+  2018-09-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分布式系统学习"><span class="post-toc-number">1.</span> <span class="post-toc-text">分布式系统学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cap概念"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">cap概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BASE-概念"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">BASE 概念</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-distributedLearning"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">分布式系统学习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-14 15:34:52" datetime="2018-09-14T07:34:52.000Z"  itemprop="datePublished">2018-09-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p><a href="https://www.cnblogs.com/xybaby/p/7787034.html" target="_blank" rel="noopener">https://www.cnblogs.com/xybaby/p/7787034.html</a><br><a href="https://www.cnblogs.com/szlbm/p/5588543.html" target="_blank" rel="noopener">https://www.cnblogs.com/szlbm/p/5588543.html</a></p>
+</blockquote>
+<h2 id="分布式系统学习"><a href="#分布式系统学习" class="headerlink" title="分布式系统学习"></a>分布式系统学习</h2><h3 id="cap概念"><a href="#cap概念" class="headerlink" title="cap概念"></a>cap概念</h3><p>CAP原则又称CAP定理，指的是在一个分布式系统中，Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性），三者不可得兼。</p>
+<h3 id="BASE-概念"><a href="#BASE-概念" class="headerlink" title="BASE 概念"></a>BASE 概念</h3><p>BASE是Basically Available（基本可用）、Soft state（软状态）和Eventually consistent（最终一致性）三个短语的缩写。BASE理论是对CAP中一致性和可用性权衡的结果，其来源于对大规模互联网系统分布式实践的总结， 是基于CAP定理逐步演化而来的。BASE理论的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。接下来看一下BASE中的三要素：</p>
+<p>1、基本可用</p>
+<p>基本可用是指分布式系统在出现不可预知故障的时候，允许损失部分可用性—-注意，这绝不等价于系统不可用。比如：</p>
+<p>（1）响应时间上的损失。正常情况下，一个在线搜索引擎需要在0.5秒之内返回给用户相应的查询结果，但由于出现故障，查询结果的响应时间增加了1~2秒</p>
+<p>（2）系统功能上的损失：正常情况下，在一个电子商务网站上进行购物的时候，消费者几乎能够顺利完成每一笔订单，但是在一些节日大促购物高峰的时候，由于消费者的购物行为激增，为了保护购物系统的稳定性，部分消费者可能会被引导到一个降级页面</p>
+<p>2、软状态</p>
+<p>软状态指允许系统中的数据存在中间状态，并认为该中间状态的存在不会影响系统的整体可用性，即允许系统在不同节点的数据副本之间进行数据同步的过程存在延时</p>
+<p>3、最终一致性</p>
+<p>最终一致性强调的是所有的数据副本，在经过一段时间的同步之后，最终都能够达到一个一致的状态。因此，最终一致性的本质是需要系统保证最终数据能够达到一致，而不需要实时保证系统数据的强一致性。</p>
+<p>总的来说，BASE理论面向的是大型高可用可扩展的分布式系统，和传统的事物ACID特性是相反的，它完全不同于ACID的强一致性模型，而是通过牺牲强一致性来获得可用性，并允许数据在一段时间内是不一致的，但最终达到一致状态。但同时，在实际的分布式场景中，不同业务单元和组件对数据一致性的要求是不同的，因此在具体的分布式系统架构设计过程中，ACID特性和BASE理论往往又会结合在一起。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-14T07:34:52.000Z" itemprop="dateUpdated">2018-09-14 15:34:52</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/14/distributedLearning/" target="_blank" rel="external">https://chengbaobao630@github.io/2018/09/14/distributedLearning/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="程呈">
+            程呈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/&title=《分布式系统学习》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/&title=《分布式系统学习》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/distributedLearning/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《分布式系统学习》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/14/dubbo/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Dubbo 学习</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/14/binaryTree/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">二查找叉树</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>程呈 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/&title=《分布式系统学习》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/&title=《分布式系统学习》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2018/09/14/distributedLearning/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《分布式系统学习》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2018/09/14/distributedLearning/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACo0lEQVR42u3awY7qQAwEwP3/n+Zdn4QI3eOYRavKKYKQTOUwNrZ/fuLj8d9x/fnzeXs83//5/OYDDw8Pb7D0Vw979fjrO7y68vqT63Xma8bDw8Pb5iW3y8PG/DXl4eeNBQ8PD+9reMk2PXlleHh4eH+Vdx0AWlh+Tzw8PLxv4J0tty3IJveZhCI8PDy8z/DOSqi/e77S38PDw8Mbd9XPgsRZcysv/harxcPDw1vg5YuYJMTtYFb+9OhKPDw8vFt5Gy2rHJYXGtor8fDw8D7PuysVTgqy+YvIv60rxHh4eHglb1LAPStSJLB2vGD0XwEPDw+v6+nXsHnzvg1F8wIxHh4e3l28ZKPPC7UJfl78LUav8PDw8D7Oy5PjsyLCJDBE1+Dh4eEt85INvd36J2MHeZr+pgGGh4eHt8Cb1C3apZ9t/YfNMDw8PLwFXlJUnTe6HuMjh+Hh4eFt8/ISQ75B56l2/rLacnBdQcHDw8MrefMBguR8UrZo74+Hh4e3zctT5PlmPR/Pyql4eHh4G7x8oW2BNUmm8zR6MsiFh4eHt8HbW3TbKstfazsWhoeHh3cXr2045Wnu5LfJeZSm4+Hh4S3z5ktvk+N54v4mOOHh4eEt8PIkNS8ETF7K2UjBWYEYDw8Pb8I73FiDRc9T7RsCAx4eHt4ab16MGFWOB3cuZnLx8PDwFniT4LE3SpWHJTw8PLxt3qM8zlLkvODbBoM3SDw8PLwF3l63KGmGtYXgyXgBHh4e3r28s2CQl1/zQdX8FeStNTw8PLw9XlvDyIer8vLEvP32MjDg4eHh/SovSaPzIHHWYCumyfDw8PC+gJds5W3YyIsRbdKPh4eHt8dLftw+vl1W0jY7DAx4eHh4t/LaP/zJt3liPS/aTgoZeHh4eCXvHxzEh1wF+tf/AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
