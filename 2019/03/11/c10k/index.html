@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>c10k学习 | 小橙子学习旅程～ | 人生苦短，学无止境，（-，-）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="架构,c10k">
+    <meta name="description" content="c10k问题研究记录场景  在java项目开发中，有些项目可能DAU，请求量非常大。为了节省资源和充分的利用资源。c10k的这个问题就诞生了，就是至如何在单台linux机器上承受10w的并发量。 socket (1)发送端：将信息以规定的协议组装成数据包。  (2)接收端：对收到的数据包解析，以提取所需要的信息。 Socket：两个在网络上的程序通过一个双向的通信连接，实现数据的交换，此连接的一端">
+<meta name="keywords" content="架构,c10k">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c10k学习">
+<meta property="og:url" content="https://chengbaobao630@github.io/2019/03/11/c10k/index.html">
+<meta property="og:site_name" content="小橙子学习旅程～">
+<meta property="og:description" content="c10k问题研究记录场景  在java项目开发中，有些项目可能DAU，请求量非常大。为了节省资源和充分的利用资源。c10k的这个问题就诞生了，就是至如何在单台linux机器上承受10w的并发量。 socket (1)发送端：将信息以规定的协议组装成数据包。  (2)接收端：对收到的数据包解析，以提取所需要的信息。 Socket：两个在网络上的程序通过一个双向的通信连接，实现数据的交换，此连接的一端">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-11T04:28:36.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="c10k学习">
+<meta name="twitter:description" content="c10k问题研究记录场景  在java项目开发中，有些项目可能DAU，请求量非常大。为了节省资源和充分的利用资源。c10k的这个问题就诞生了，就是至如何在单台linux机器上承受10w的并发量。 socket (1)发送端：将信息以规定的协议组装成数据包。  (2)接收端：对收到的数据包解析，以提取所需要的信息。 Socket：两个在网络上的程序通过一个双向的通信连接，实现数据的交换，此连接的一端">
+    
+        <link rel="alternate" type="application/atom+xml" title="小橙子学习旅程～" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">程呈</h5>
+          <a href="mailto:554858452@qq.com" title="554858452@qq.com" class="mail">554858452@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chengbaobao630" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">c10k学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">c10k学习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-11T02:58:38.309Z" itemprop="datePublished" class="page-time">
+  2019-03-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/架构/">架构</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c10k问题研究记录"><span class="post-toc-number">1.</span> <span class="post-toc-text">c10k问题研究记录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#场景"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">场景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#socket"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">socket</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文件句柄数"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">文件句柄数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#close-wait"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">close_wait</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#time-wait"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">time_wait</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-c10k"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">c10k学习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-11 10:58:38" datetime="2019-03-11T02:58:38.309Z"  itemprop="datePublished">2019-03-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/架构/">架构</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="c10k问题研究记录"><a href="#c10k问题研究记录" class="headerlink" title="c10k问题研究记录"></a>c10k问题研究记录</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>  在java项目开发中，有些项目可能DAU，请求量非常大。为了节省资源和充分的利用资源。c10k的这个问题就诞生了，就是至如何在单台linux机器上承受10w的并发量。</p>
+<h2 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h2><blockquote>
+<p>(1)发送端：将信息以规定的协议组装成数据包。</p>
+</blockquote>
+<p>(2)接收端：对收到的数据包解析，以提取所需要的信息。</p>
+<p>Socket：两个在网络上的程序通过一个双向的通信连接，实现数据的交换，此连接的一端称为一个socket。</p>
+<p>Socket的本质：Socket是一个编程接口(API)，TCP/IP协议需要向开发者提供做网络开发用的接口，这就是Socket接口，它是对TCP/IP协议网络通信的封装。 </p>
+<pre><code>一次网络传输的五元组件：
+    1.发送端的ip
+    2.发送方的端口
+    3.接收方的ip
+    4.接收方的端口
+    5.传输协议
+
+ 那么针对一次TCP传输的话就是四元组件:
+    1.发送端的ip
+    2.发送方的端口
+    3.接收方的ip
+    4.接收方的端口
+</code></pre><p>首先 到目前位置每台机器的端口数是有限的 2^16 = 65536 （0-53325）,默认0是不可使用的 1024一下是默认被占用端口。那么在实际使用过程中可用的端口数量也就5w多个。那么可以绑定多个IP来解决这个问题。</p>
+<h2 id="文件句柄数"><a href="#文件句柄数" class="headerlink" title="文件句柄数"></a>文件句柄数</h2><pre><code>在linux中一切皆是文件，那么在C10K问题中肯定面临着文件句柄数不够的问题。
+</code></pre><h2 id="close-wait"><a href="#close-wait" class="headerlink" title="close_wait"></a>close_wait</h2><pre><code>当服务端大量出现close_wait的时候说明程序内部是有问题的。没有关闭socket的链接。之前我们遇到的问题是在服务端拿到的response 却没有close，导致大量的close wait。
+</code></pre><h2 id="time-wait"><a href="#time-wait" class="headerlink" title="time_wait"></a>time_wait</h2><pre><code>TCP协议规定，主动发起关闭的一方会产生TIME_WAIT状态。那么就会在服务端产生大量的TIME_WAIT。听说（自己不是很了解）没什么太大的影响而且占用内存之类的都不大。但是也存在优化的空间
+具体参数：
+resycle:是否开启快速回收
+
+resume:是否开启Socket重用
+
+tcp_time: 时间
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-03-11T04:28:36.325Z" itemprop="dateUpdated">2019-03-11 12:28:36</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/03/11/c10k/" target="_blank" rel="external">https://chengbaobao630@github.io/2019/03/11/c10k/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://chengbaobao630@github.io">
+            <img src="/img/avatar.jpg" alt="程呈">
+            程呈
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c10k/">c10k</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/架构/">架构</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2019/03/11/c10k/&title=《c10k学习》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2019/03/11/c10k/&title=《c10k学习》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2019/03/11/c10k/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《c10k学习》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2019/03/11/c10k/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2019/03/11/c10k/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/12/10/java-coroutine/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java协程</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>程呈 &copy; 2018 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://chengbaobao630@github.io/2019/03/11/c10k/&title=《c10k学习》 — 小橙子学习旅程～&pic=https://chengbaobao630@github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://chengbaobao630@github.io/2019/03/11/c10k/&title=《c10k学习》 — 小橙子学习旅程～&source=记录的比较杂，之后会慢慢的整理起来" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://chengbaobao630@github.io/2019/03/11/c10k/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《c10k学习》 — 小橙子学习旅程～&url=https://chengbaobao630@github.io/2019/03/11/c10k/&via=https://chengbaobao630@github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://chengbaobao630@github.io/2019/03/11/c10k/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3a207DMBAFQP7/p8srCKWcs25BsSdPiKaxJ0iL9/LxEV+PL9fX3/z89Pl19d2rVV58YWBg3JaRL3y1/PN7Zvj8HgwMjHMYVxEsuSdfPn9avjcMDAyMhNSG6dnBEQMDA2MWcPNPkwT13/5vYGBg3ISxEgTzEJyX596Yi2NgYNyQkVfd//7nt/Q3MDAwbsV4lFfCy493K63Qb6tgYGBszcgDXFJKS2Jgmzzn+8HAwNib0Ya/Fd5sLGx4WMTAwNiO8bJWYtkeSEpsORgDA2M/xiyYJi2BlaJe3QDAwMA4gNGmrLOkND9E1qtgYGBszchHJfKH5se+WSAuwi4GBsYWjHyLK4W2/Dmzl4KBgbE3Iz+izVLNGXXYQsDAwNiU0Za33kFqy3a//B0wMDC2Y8yGIfJSWp7otuEYAwPjTEYeNJ8vX6SdC6W9aGYEAwNjC0Y++NWObbWvZtYwiOp5GBgYGzFWktXZWEb7reHMCAYGxs0Zs4QzJ7UHx7ZdioGBcSZjZSt5+poH3GIoDQMD42DGLPmMKnxlvwIDAwOj3Up+HGyflmDq6TYMDIzbMh7lNUO277Ue4MDAwNia0XYJZ4W2JHFdGUrDwMA4gTHb4koimiS0deqLgYFxACOfXmjLc7OjZ/0iMDAwMNohrbIMNxywwMDAwBiF0TZw10MVV3gMDIwDGEkSuz7sNXtZ0QAHBgbG1ow8dVwvos2OfS9rZGJgYNyP8QmbS7JQ7lnFugAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
